@@ -1,1 +1,3 @@
-export const DefaultAvatarImage = "./img-default-avatar.svg";
+export const ImageSource = {
+  LogoImage: require("./img-logo.png"),
+};

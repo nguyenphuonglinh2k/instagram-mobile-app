@@ -1,7 +1,23 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeIcon, SearchIcon, RoundPlusIcon, MessageIcon } from "../icons";
+import { Timeline } from "../screen";
+
+const HomeStack = createNativeStackNavigator();
+
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <HomeStack.Screen name="Home" component={Timeline} />
+    </HomeStack.Navigator>
+  );
+};
 
 const AvatarIcon = () => {
   return (
@@ -13,14 +29,6 @@ const AvatarIcon = () => {
     />
   );
 };
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
 function ProfileScreen() {
   return (
@@ -60,7 +68,7 @@ export default function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         tabBarStyle: {
           height: 40,
         },
@@ -69,8 +77,8 @@ export default function TabNavigator() {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStackScreen}
         options={() => ({
           tabBarIcon: ({ focused }) => <HomeIcon />,
         })}
