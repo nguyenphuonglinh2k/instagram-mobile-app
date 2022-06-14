@@ -1,13 +1,15 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import StoryView from "./StoryView";
 import { MainLayout } from "../../layouts";
+import StoryView from "./StoryView";
+import Posts from "./Posts";
 
 const Timeline = () => {
   return (
     <MainLayout>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <StoryView />
+        <Posts />
       </ScrollView>
     </MainLayout>
   );
