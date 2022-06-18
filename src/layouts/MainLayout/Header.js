@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
-import { NotificationIcon } from "../../icons";
-import { ImageSource } from "../../assets";
+import { NotificationIcon } from "icons";
+import { ImageSource } from "assets";
 
 const Header = () => {
   return (

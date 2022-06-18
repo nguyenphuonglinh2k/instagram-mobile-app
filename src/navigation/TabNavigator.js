@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View, Image } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeIcon, SearchIcon, RoundPlusIcon, MessageIcon } from "../icons";
+import { HomeIcon, SearchIcon, RoundPlusIcon, MessageIcon } from "icons";
 import { Timeline } from "../screen";
 
 const HomeStack = createNativeStackNavigator();
