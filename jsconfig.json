@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "paths": {
-      "navigation/*": ["/navigation/*"],
+      "navigation/*": ["navigation/*"],
       "screens/*": ["screens/*"],
       "locales/*": ["locales/*"],
       "assets/*": ["assets/*"],
