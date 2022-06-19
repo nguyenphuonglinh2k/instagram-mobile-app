@@ -1,23 +1,14 @@
 import * as React from "react";
-import { Text, View, Image } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeIcon, SearchIcon, RoundPlusIcon, MessageIcon } from "icons";
-import { Timeline } from "../screen";
-
-const HomeStack = createNativeStackNavigator();
-
-const HomeStackScreen = () => {
-  return (
-    <HomeStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <HomeStack.Screen name="Home" component={Timeline} />
-    </HomeStack.Navigator>
-  );
-};
+import {
+  HomeStack,
+  ProfileStack,
+  ChatStack,
+  CreatePostStack,
+  ExploreStack,
+} from "./StackNavigator";
 
 const AvatarIcon = () => {
   return (
@@ -27,38 +18,6 @@ const AvatarIcon = () => {
         uri: "https://i.pinimg.com/736x/10/c9/c0/10c9c02224ae9c08ba781bae2a856675.jpg",
       }}
     />
-  );
-};
-
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
-
-const SearchScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search</Text>
-    </View>
-  );
-};
-
-const CreateScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Create</Text>
-    </View>
-  );
-};
-
-const ChatScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Chat</Text>
-    </View>
   );
 };
 
@@ -78,7 +37,7 @@ export default function TabNavigator() {
     >
       <Tab.Screen
         name="HomeStack"
-        component={HomeStackScreen}
+        component={HomeStack}
         options={() => ({
           tabBarIcon: ({ focused }) => <HomeIcon />,
         })}
@@ -86,7 +45,7 @@ export default function TabNavigator() {
 
       <Tab.Screen
         name="Explore"
-        component={SearchScreen}
+        component={ExploreStack}
         options={() => ({
           tabBarIcon: ({ focused }) => <SearchIcon />,
         })}
@@ -94,7 +53,7 @@ export default function TabNavigator() {
 
       <Tab.Screen
         name="Create"
-        component={CreateScreen}
+        component={CreatePostStack}
         options={() => ({
           tabBarIcon: ({ focused }) => <RoundPlusIcon />,
         })}
@@ -102,14 +61,14 @@ export default function TabNavigator() {
 
       <Tab.Screen
         name="Chat"
-        component={ChatScreen}
+        component={ChatStack}
         options={() => ({
           tabBarIcon: ({ focused }) => <MessageIcon />,
         })}
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={() => ({
           tabBarIcon: ({ focused }) => <AvatarIcon />,
         })}

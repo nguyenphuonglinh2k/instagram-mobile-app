@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import TabNavigation from "./src/navigation/TabNavigator";
+import TabNavigation from "navigation/TabNavigator";
+import { AuthStack } from "./src/navigation/StackNavigator";
+import { SplashScreen } from "screens";
 
 const navTheme = {
   ...DefaultTheme,
@@ -12,10 +14,30 @@ const navTheme = {
 };
 
 const App = () => {
+  const [splash, setSplash] = useState(true);
+
+  const isLoggedIn = true;
+
+  useEffect(() => {
+    const splashTimeout = setTimeout(() => {
+      setSplash(false);
+    }, 700);
+
+    return () => {
+      clearTimeout(splashTimeout);
+    };
+  }, []);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={navTheme}>
-        <TabNavigation />
+        {splash ? (
+          <SplashScreen />
+        ) : isLoggedIn ? (
+          <TabNavigation />
+        ) : (
+          <AuthStack />
+        )}
       </NavigationContainer>
     </SafeAreaProvider>
   );
