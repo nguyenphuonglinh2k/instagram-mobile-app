@@ -7,6 +7,7 @@ import MenuIcon from "./MenuIcon";
 import CommentIcon from "./CommentIcon";
 import LocationArrowIcon from "./LocationArrowIcon";
 import HeartIcon from "./HeartIcon";
+import ArrowIcon from "./ArrowIcon";
 
 export {
   HomeIcon,
@@ -18,4 +19,5 @@ export {
   CommentIcon,
   LocationArrowIcon,
   HeartIcon,
+  ArrowIcon,
 };

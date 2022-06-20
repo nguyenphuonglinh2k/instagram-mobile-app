@@ -1,8 +1,8 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { MainLayout } from "../../layouts";
-import StoryView from "./StoryView";
-import Posts from "./Posts";
+import { MainLayout } from "layouts";
+import StoryView from "components/sn-root/StoryView";
+import Posts from "components/sn-root/Posts";
 
 const Timeline = () => {
   return (

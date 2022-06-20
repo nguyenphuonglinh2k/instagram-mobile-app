@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Timeline, SignIn } from "screens";
+import { Timeline, SignIn, CreatePost } from "screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,9 +41,9 @@ const ExploreStack = () => {
 
 const CreatePostStack = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Create</Text>
-    </View>
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name="CreatePost" component={CreatePost} />
+    </Stack.Navigator>
   );
 };
 
