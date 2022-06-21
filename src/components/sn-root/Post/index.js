@@ -5,8 +5,9 @@ import PostHeader from "./PostHeader";
 import PostContent from "./PostContent";
 import PostActions from "./PostActions";
 
-const Post = ({ data, ...otherProps }) => {
+const Post = ({ data, navigation, ...otherProps }) => {
   const { avatarSrc, username, content, imageContentSrc } = data;
+  console.log(navigation)
 
   return (
     <View {...otherProps}>
@@ -16,7 +17,7 @@ const Post = ({ data, ...otherProps }) => {
         imageContentSrc={imageContentSrc}
         style={styles.content}
       />
-      <PostActions />
+      <PostActions navigation={navigation} />
     </View>
   );
 };

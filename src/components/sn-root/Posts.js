@@ -2,15 +2,20 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Post from "./Post";
 
-const Posts = () => {
+const Posts = ({ navigation }) => {
+
+  console.log(navigation)
+  console.log("NHAN")
   return (
     <View style={styles.list}>
       {MOCK_POSTS.map((data, index) => (
-        <Post key={index} data={data} style={index !== 0 && styles.item} />
+        <Post key={index} data={data} style={index !== 0 && styles.item} navigation={navigation} />
       ))}
     </View>
   );
+
 };
+
 
 const MOCK_POSTS = Array.from(new Array(5)).map((_, i) => ({
   id: i + 1,

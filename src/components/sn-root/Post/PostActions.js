@@ -3,14 +3,24 @@ import PropTypes from "prop-types";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { HeartIcon, CommentIcon, LocationArrowIcon } from "../../../icons";
 
-const PostActions = ({ style, ...otherProps }) => {
+
+const PostActions = ({ style, navigation, ...otherProps }) => {
+ 
+
+  const navigateScren = ()=>{
+    navigation.navigate("Comment")
+  }
+
+
   return (
     <View style={[styles.root, style]} {...otherProps}>
       <TouchableOpacity style={styles.marginRight}>
         <HeartIcon />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.marginRight}>
-        <CommentIcon />
+      <TouchableOpacity
+        style={styles.marginRight}
+      >
+        <CommentIcon onPress={navigateScren}/>
       </TouchableOpacity>
       <TouchableOpacity>
         <LocationArrowIcon />

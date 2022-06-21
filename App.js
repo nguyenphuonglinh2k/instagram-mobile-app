@@ -12,7 +12,6 @@ const navTheme = {
     background: "#FFF",
   },
 };
-
 const App = () => {
   const [splash, setSplash] = useState(true);
 
