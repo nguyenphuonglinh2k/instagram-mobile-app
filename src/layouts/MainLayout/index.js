@@ -18,7 +18,11 @@ const MainLayout = ({
       edges={["right", "top", "left"]}
       {...otherProps}
     >
-      {isBackScreen ? <HeaderBackButton /> : <Header {...headerProps} />}
+      {isBackScreen ? (
+        <HeaderBackButton {...headerProps} />
+      ) : (
+        <Header {...headerProps} />
+      )}
       {children}
     </SafeAreaView>
   );

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import Post from "./Post";
+import { PostService } from "services";
 
 const Posts = () => {
+  const getPosts = () => {
+    const response = PostService.getPosts();
+    console.log(response);
+  };
+
+  useEffect(() => {
+    // getPosts();
+  }, []);
+
   return (
     <View style={styles.list}>
       {MOCK_POSTS.map((data, index) => (

@@ -1,11 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ArrowIcon } from "icons";
 
-const HeaderBackButton = ({ headerRight, style, ...otherProps }) => {
+const HeaderBackButton = ({
+  title,
+  titleProps,
+  headerRight,
+  style,
+  ...otherProps
+}) => {
   const navigation = useNavigation();
+
+  const { style: titleStyle, ...otherTitleProps } = titleProps;
 
   const onGoBack = () => {
     navigation.goBack();
@@ -13,17 +21,33 @@ const HeaderBackButton = ({ headerRight, style, ...otherProps }) => {
 
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
-      <TouchableOpacity onPress={onGoBack}>
-        <ArrowIcon />
-      </TouchableOpacity>
+      <View style={styles.headerLeft}>
+        <TouchableOpacity onPress={onGoBack}>
+          <ArrowIcon />
+        </TouchableOpacity>
+        {Boolean(title) && (
+          <Text style={[styles.title, titleStyle]} {...otherTitleProps}>
+            {title}
+          </Text>
+        )}
+      </View>
+
       {headerRight}
     </View>
   );
 };
 
 HeaderBackButton.propTypes = {
+  title: PropTypes.string,
   headerRight: PropTypes.node,
   style: PropTypes.object,
+  titleProps: PropTypes.shape({
+    style: PropTypes.object,
+  }),
+};
+
+HeaderBackButton.defaultProps = {
+  titleProps: { style: {} },
 };
 
 const styles = StyleSheet.create({
@@ -35,7 +59,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#C4C4C4",
   },
-  arrowIcon: {},
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  title: {
+    marginLeft: 16,
+    color: "#000",
+    fontWeight: "700",
+    fontSize: 16,
+  },
 });
 
 export default HeaderBackButton;
