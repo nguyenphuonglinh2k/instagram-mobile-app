@@ -27,7 +27,7 @@
       "api/*": ["api/*"],
       "components/*": ["components/*"],
       "icons/*": ["icons/*"],
-      "store/*": ["store/*"],
+      "reduxStore/*": ["reduxStore/*"],
       "sagas/*": ["sagas/*"],
       "services/*": ["services/*"]
     }

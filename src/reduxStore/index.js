@@ -3,10 +3,12 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 
 import * as PostRedux from "./post.redux";
+import * as AppRedux from "./app.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
   postRedux: PostRedux.reducer,
+  appRedux: AppRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

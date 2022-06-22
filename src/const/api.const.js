@@ -20,5 +20,10 @@ export const STT_FORBIDDEN = 403;
 export const STT_NOT_FOUND = 404;
 export const STT_INTERNAL_SERVER = 500;
 
+// Auth
+export const POST_SIGN_IN = "/auth/login";
+export const POST_SIGN_UP = "/auth/signup";
+
 // Post
 export const GET_POSTS = "/posts";
+export const POST_MY_POST = "/post/create";

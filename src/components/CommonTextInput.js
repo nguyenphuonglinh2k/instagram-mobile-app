@@ -27,7 +27,6 @@ const CommonTextInput = ({
           inputRef.current?.isFocused() && styles.focused,
           style,
         ]}
-        keyboardType="email-address"
         {...otherProps}
       />
     </>

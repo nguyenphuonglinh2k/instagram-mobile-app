@@ -6,11 +6,11 @@ import PostContent from "./PostContent";
 import PostActions from "./PostActions";
 
 const Post = ({ data, ...otherProps }) => {
-  const { avatarSrc, username, content, imageContentSrc } = data;
+  const { caption: content, imageUrl: imageContentSrc, user } = data;
 
   return (
     <View {...otherProps}>
-      <PostHeader avatarSrc={avatarSrc} name={username} />
+      <PostHeader avatarSrc={user.userImageUrl} name={user.name} />
       <PostContent
         content={content}
         imageContentSrc={imageContentSrc}
@@ -23,11 +23,17 @@ const Post = ({ data, ...otherProps }) => {
 
 Post.propTypes = {
   data: PropTypes.shape({
-    avatarSrc: PropTypes.string,
-    username: PropTypes.string,
-    content: PropTypes.string,
-    imageContentSrc: PropTypes.string,
+    caption: PropTypes.string,
+    imageUrl: PropTypes.string,
+    user: PropTypes.shape({
+      userImageUrl: PropTypes.string,
+      name: PropTypes.string,
+    }),
   }),
+};
+
+Post.defaultProps = {
+  data: { user: {} },
 };
 
 const styles = StyleSheet.create({

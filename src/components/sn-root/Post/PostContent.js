@@ -7,26 +7,43 @@ const PostContent = ({ content, imageContentSrc, ...otherProps }) => {
 
   const onToggleContentLength = () => {
     if (numberOfLines === 0) {
-      setNumberOfLines(2);
+      setNumberOfLines(MAXIMUM_NUMBER_OF_LINES);
     } else {
       setNumberOfLines(0);
     }
   };
 
+  const onTextLayout = e => {
+    const lineLength = e.nativeEvent.lines.length;
+    if (lineLength <= MAXIMUM_NUMBER_OF_LINES) {
+      setNumberOfLines(null);
+    }
+  };
+
   return (
     <View {...otherProps}>
-      <Text numberOfLines={numberOfLines} style={styles.content}>
+      <Text
+        numberOfLines={numberOfLines}
+        style={styles.content}
+        onTextLayout={onTextLayout}
+      >
         {content}
       </Text>
-      <TouchableOpacity onPress={onToggleContentLength}>
-        <Text style={styles.viewMore}>
-          {numberOfLines === 0 ? "View less" : "View more"}
-        </Text>
-      </TouchableOpacity>
+
+      {numberOfLines !== null && (
+        <TouchableOpacity onPress={onToggleContentLength}>
+          <Text style={styles.viewMore}>
+            {numberOfLines === 0 ? "View less" : "View more"}
+          </Text>
+        </TouchableOpacity>
+      )}
+
       <Image source={{ uri: imageContentSrc }} style={styles.image} />
     </View>
   );
 };
+
+const MAXIMUM_NUMBER_OF_LINES = 2;
 
 PostContent.propTypes = {
   content: PropTypes.string,

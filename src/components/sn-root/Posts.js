@@ -1,21 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import Post from "./Post";
 import { PostService } from "services";
+import { ApiConstant } from "const";
 
 const Posts = () => {
-  const getPosts = () => {
-    const response = PostService.getPosts();
-    console.log(response);
+  const [posts, setPosts] = useState([]);
+
+  const getPosts = async () => {
+    try {
+      const response = await PostService.getPosts();
+
+      if (response.status === ApiConstant.STT_OK) {
+        setPosts(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    // getPosts();
+    getPosts();
   }, []);
 
   return (
     <View style={styles.list}>
-      {MOCK_POSTS.map((data, index) => (
+      {posts.map((data, index) => (
         <Post key={index} data={data} style={index !== 0 && styles.item} />
       ))}
     </View>

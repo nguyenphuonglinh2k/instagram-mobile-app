@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
+import clientStorage from "utils/clientStorage";
 
 const requestAbortCode = "ECONNABORTED";
 
@@ -11,7 +12,9 @@ export const defaultConfig = {
 const axiosInstance = axios.create(defaultConfig);
 
 const ApiContainer = class {
-  constructor() {}
+  constructor() {
+    this.token = null;
+  }
 
   async headers(params) {
     const keys = Object.keys(params);
@@ -20,8 +23,15 @@ const ApiContainer = class {
     });
   }
 
+  async getToken() {
+    const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+    this.token = token;
+  }
+
   async get(endpoint, params = {}) {
     try {
+      // const authToken = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
       const response = await axiosInstance.get(endpoint, params);
       return response;
     } catch (error) {

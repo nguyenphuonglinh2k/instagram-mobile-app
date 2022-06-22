@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import { MenuIcon } from "../../../icons";
+import { MenuIcon } from "icons";
 import PropTypes from "prop-types";
 
 const PostHeader = ({ avatarSrc, name }) => {

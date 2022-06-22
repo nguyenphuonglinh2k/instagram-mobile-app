@@ -24,7 +24,7 @@ module.exports = {
           "@utils": "./utils",
           "@components": "./components",
           "@icons": "./icons",
-          "@store": "./store",
+          "@reduxStore": "./reduxStore",
           "@sagas": "./sagas",
           "@services": "./services",
           "@layout": "./layout",

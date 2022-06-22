@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -9,15 +9,43 @@ import {
 } from "react-native";
 import { ImageSource } from "assets";
 import { useNavigation } from "@react-navigation/native";
-import { PathConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import { ContainedButton, TextButton, CommonTextInput } from "components";
+import { AuthService } from "services";
+import clientStorage from "utils/clientStorage";
+import { RouteName } from "const/path.const";
+import AppActions from "reduxStore/app.redux";
+import { useDispatch } from "react-redux";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const onLogin = () => {
-    // eslint-disable-next-line no-alert
-    alert("click log in");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
+
+  const onLogin = async () => {
+    try {
+      const response = await AuthService.postSignIn({
+        email,
+        password,
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        const { token, user } = response.data;
+
+        const bearToken = `Bearer ${token}`;
+
+        dispatch(AppActions.appSuccess({ token: bearToken, user }));
+
+        clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
+        clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));
+
+        navigation.navigate(RouteName.TIMELINE);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -28,16 +56,22 @@ const SignIn = () => {
 
       <Image style={styles.signInText} source={ImageSource.SignInTextImage} />
 
-      <CommonTextInput label="Email" />
+      <CommonTextInput
+        label="Email"
+        value={email}
+        onChangeText={onChangeEmail}
+        keyboardType="email-address"
+      />
       <CommonTextInput
         label="Password"
+        value={password}
+        onChangeText={onChangePassword}
         secureTextEntry
         style={{ marginBottom: 10 }}
         labelProps={{ style: { marginTop: 20 } }}
       />
 
       <TextButton
-        onPress={() => navigation.navigate(PathConstant.FORGOT_PASSWORD)}
         label="Forgot Password?"
         labelProps={{ style: styles.textButton }}
       />
@@ -57,6 +91,11 @@ const SignIn = () => {
       </View>
     </ScrollView>
   );
+};
+
+const INPUT_TYPE = {
+  email: 1,
+  password: 2,
 };
 
 const styles = StyleSheet.create({

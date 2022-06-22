@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Timeline, SignIn, CreatePost } from "screens";
+import { RouteName } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
 
@@ -10,7 +11,7 @@ const screenOptions = { headerShown: false };
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name={RouteName.SIGN_IN} component={SignIn} />
     </Stack.Navigator>
   );
 };
@@ -18,7 +19,7 @@ const AuthStack = () => {
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="Home" component={Timeline} />
+      <Stack.Screen name={RouteName.TIMELINE} component={Timeline} />
     </Stack.Navigator>
   );
 };
@@ -42,7 +43,7 @@ const ExploreStack = () => {
 const CreatePostStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="CreatePost" component={CreatePost} />
+      <Stack.Screen name={RouteName.CREATE_POST} component={CreatePost} />
     </Stack.Navigator>
   );
 };
