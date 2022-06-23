@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { View } from "react-native";
 import { MainLayout } from "layouts";
 import StoryView from "components/sn-root/StoryView";
 import Posts from "components/sn-root/Posts";
@@ -7,10 +7,10 @@ import Posts from "components/sn-root/Posts";
 const Timeline = () => {
   return (
     <MainLayout>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 1 }}>
         <StoryView />
         <Posts />
-      </ScrollView>
+      </View>
     </MainLayout>
   );
 };

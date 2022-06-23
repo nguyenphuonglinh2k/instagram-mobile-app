@@ -93,11 +93,6 @@ const SignIn = () => {
   );
 };
 
-const INPUT_TYPE = {
-  email: 1,
-  password: 2,
-};
-
 const styles = StyleSheet.create({
   logoWrapper: {
     alignItems: "center",

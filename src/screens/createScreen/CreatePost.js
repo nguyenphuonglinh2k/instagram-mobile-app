@@ -15,14 +15,17 @@ import { ApiConstant } from "const";
 import { toCamel } from "utils";
 import { RouteName } from "const/path.const";
 import { CheckIcon } from "icons";
+import { LoadingSpinner } from "components";
 
 const CreatePost = () => {
   const navigation = useNavigation();
   const [imageUri, setImageUri] = useState();
   const [content, onChangeContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const onPickImage = async () => {
     try {
+      setIsLoading(true);
       const response = await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       });
@@ -47,10 +50,13 @@ const CreatePost = () => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onCreatePost = async () => {
+    setIsLoading(true);
     try {
       const response = await PostService.postMyPost({
         imageUrl: imageUri,
@@ -62,6 +68,7 @@ const CreatePost = () => {
         resetData();
       }
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
     }
   };
@@ -69,6 +76,7 @@ const CreatePost = () => {
   const resetData = () => {
     setImageUri();
     onChangeContent("");
+    setIsLoading(false);
   };
 
   return (
@@ -101,6 +109,7 @@ const CreatePost = () => {
           multiline
         />
       </ScrollView>
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
