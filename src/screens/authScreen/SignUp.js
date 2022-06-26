@@ -9,12 +9,10 @@ import {
 } from "react-native";
 import { ImageSource } from "assets";
 import { useNavigation } from "@react-navigation/native";
-import { PathConstant } from "const";
-import { ContainedButton, TextButton, CommonTextInput } from "components";
+import { ContainedButton, CommonTextInput } from "components";
 
 const SignUp = () => {
     const navigation = useNavigation();
-
     const onLogin = () => {
         alert("Click Sign up");
     };
@@ -22,16 +20,15 @@ const SignUp = () => {
     const navigateScreen = () => {
         navigation.navigate("SignUp")
     }
-
     return (
         <ScrollView style={{ flex: 1, padding: 16 }}>
             <View style={styles.logoWrapper}>
                 <Image style={styles.logo} source={ImageSource.LogoLargeImage} />
             </View>
 
-            <Image style={styles.signUpText_Header} source={ImageSource.SignUpTextImage} />
+            <Image style={styles.SignUpTextImage} source={ImageSource.SignUpTextImage} />
 
-            <CommonTextInput label="Phone number or email" />
+            <CommonTextInput label="Email" />
             <CommonTextInput label="Username" labelProps={{ style: { marginTop: 20 } }} />
             <CommonTextInput
                 label="Password"
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
         height: 70,
         width: 70,
     },
-    signUpText_Header: {
+    SignUpTextImage: {
         width: 70,
         height: 20,
         marginBottom: 18,

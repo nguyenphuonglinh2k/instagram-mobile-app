@@ -16,7 +16,6 @@ const SignIn = () => {
   const navigation = useNavigation();
 
   const onLogin = () => {
-    // eslint-disable-next-line no-alert
     alert("click log in");
   };
 

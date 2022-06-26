@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     },
     commentText: {
         width: "90%",
+        color: "#262626",
     },
     input: {
         margin: 15,
@@ -115,9 +116,6 @@ const styles = StyleSheet.create({
     commentAuth: {
         color: "#262626",
         fontWeight: "700",
-    },
-    commentText: {
-        color: "#262626",
     },
     commentTime: {
         marginTop: 8,
