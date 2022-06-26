@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { FaceIcon } from "icons";
+import { FaceIcon, LocationArrowIcon } from "icons";
 
 const InputBox = ({ style, ...otherProps }) => {
   return (
@@ -15,6 +15,9 @@ const InputBox = ({ style, ...otherProps }) => {
         placeholder="Write comment here"
         multiline
       />
+      <TouchableOpacity>
+        <LocationArrowIcon style={styles.rotate} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -44,6 +47,9 @@ const styles = StyleSheet.create({
     maxHeight: 75,
     overflow: "hidden",
     marginLeft: 8,
+  },
+  rotate: {
+    transform: [{ rotate: "45deg" }],
   },
 });
 
