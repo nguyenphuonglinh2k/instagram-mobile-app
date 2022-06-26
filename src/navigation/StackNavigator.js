@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Timeline, SignIn, CreatePost, Profile } from "screens";
+import { Timeline, SignIn, CreatePost, Profile, Comment } from "screens";
 import { RouteName } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +20,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={RouteName.TIMELINE} component={Timeline} />
+      <Stack.Screen name={RouteName.COMMENT} component={Comment} />
     </Stack.Navigator>
   );
 };

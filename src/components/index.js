@@ -8,6 +8,10 @@ import FollowAndChatAction from "./sn-profile/FollowAndChatAction";
 import ProfileTabBar from "./sn-profile/ProfileTabBar";
 import Gallery from "./sn-profile/Gallery";
 
+// Comment Screen
+import InputBox from "./sn-comment/InputBox";
+import Chats from "./sn-comment/Chats";
+
 // Common
 import ContainedButton from "./ContainedButton";
 import TextButton from "./TextButton";
@@ -30,4 +34,6 @@ export {
   Gallery,
   TextGradient,
   OutlinedButton,
+  InputBox,
+  Chats,
 };

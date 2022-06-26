@@ -12,6 +12,7 @@ import CheckIcon from "./CheckIcon";
 import PhotoIcon from "./PhotoIcon";
 import VideoIcon from "./VideoIcon";
 import SettingIcon from "./SettingIcon";
+import FaceIcon from "./FaceIcon";
 
 export {
   HomeIcon,
@@ -28,4 +29,5 @@ export {
   PhotoIcon,
   VideoIcon,
   SettingIcon,
+  FaceIcon,
 };

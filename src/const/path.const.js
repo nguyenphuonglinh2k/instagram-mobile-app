@@ -4,4 +4,5 @@ export const RouteName = {
   TIMELINE: "TIMELINE",
   CREATE_POST: "CREATE_POST",
   PROFILE: "PROFILE",
+  COMMENT: "COMMENT",
 };
