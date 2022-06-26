@@ -3,9 +3,6 @@ import { View, StyleSheet } from "react-native";
 import Post from "./Post";
 
 const Posts = ({ navigation }) => {
-
-  console.log(navigation)
-  console.log("NHAN")
   return (
     <View style={styles.list}>
       {MOCK_POSTS.map((data, index) => (

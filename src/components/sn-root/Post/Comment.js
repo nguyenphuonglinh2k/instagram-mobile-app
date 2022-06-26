@@ -12,6 +12,17 @@ import { MainLayout } from "layouts";
 
 import { LocationArrowIcon } from "../../../icons";
 
+const MOCK_COMMENTS = Array.from(new Array(2)).map((_, i) => ({
+    id: i + 1,
+    avatarSrc:
+        "https://img1.ak.crunchyroll.com/i/spire3/a4d7780b3670404893ffde7180f10f331652967967_large.jpg",
+    username: "Damian",
+    content:
+        "You're so cute!",
+    time:
+        "3h",
+}));
+
 
 
 const Comment = () => {
@@ -19,17 +30,26 @@ const Comment = () => {
         <MainLayout isBackScreen >
             <LocationArrowIcon style={styles.shareIcon} />
             <ScrollView style={styles.wrapper}>
-                <View style={styles.test}>
-                    <View style={styles.commentItem}>
-                        <Image style={styles.avatar} source={{ uri: "https://img1.ak.crunchyroll.com/i/spire3/a4d7780b3670404893ffde7180f10f331652967967_large.jpg" }} />
-                        <View>
-                            <View className={styles.commentContent}>
-                                <Text style={styles.commentAuth}>Elizaberth</Text>
-                                <Text style={styles.commentAuth}>Wow!</Text>
+                <View>
+                    {MOCK_COMMENTS.map((data, index) => (
+                        <View style={styles.commentItem} key={index}>
+                            <Image style={styles.avatarComment} source={{ uri: data.avatarSrc }} />
+                            <View>
+                                <View
+                                    className={styles.commentContent}
+                                    backgroundColor="rgba(196, 196, 196, 0.35)"
+                                    paddingVertical={8}
+                                    paddingHorizontal={12}
+                                    borderRadius={10}
+                                >
+                                    <Text style={styles.commentAuth}>{data.username}</Text>
+                                    <Text style={styles.commentText}>{data.content}</Text>
+                                </View>
+                                <Text style={styles.commentTime}>{data.time}</Text>
                             </View>
-                            <Text>3h</Text>
                         </View>
-                    </View>
+                    ))}
+
                 </View>
             </ScrollView>
             <View style={styles.commentInput}>
@@ -78,10 +98,31 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
     },
     avatar: {
-        height: 40,
-        width: 40,
+        height: 35,
+        width: 35,
         borderRadius: 50,
     },
+    commentItem: {
+        flexDirection: "row",
+        marginBottom: 10
+    },
+    avatarComment: {
+        height: 35,
+        width: 35,
+        borderRadius: 50,
+        marginRight: 16
+    },
+    commentAuth: {
+        color: "#262626",
+        fontWeight: "700",
+    },
+    commentText: {
+        color: "#262626",
+    },
+    commentTime: {
+        marginTop: 8,
+        marginLeft: 12
+    }
 
 });
 

@@ -20,6 +20,10 @@ const SignIn = () => {
     alert("click log in");
   };
 
+  const navigateScreen = () => {
+    navigation.navigate("SignUp")
+  }
+
   return (
     <ScrollView style={{ flex: 1, padding: 16 }}>
       <View style={styles.logoWrapper}>
@@ -52,6 +56,7 @@ const SignIn = () => {
           <Image
             style={styles.signUpText}
             source={ImageSource.SignUpTextImage}
+            onPress={navigateScreen}
           />
         </TouchableOpacity>
       </View>

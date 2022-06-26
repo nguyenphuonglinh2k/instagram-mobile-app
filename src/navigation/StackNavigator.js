@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Timeline, SignIn, CreatePost } from "screens";
-import Comment from "../components/sn-root/Post/Comment"
+import { Timeline, SignIn, SignUp, CreatePost } from "screens";
+import Comment from "../components/sn-root/Post/Comment";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +11,8 @@ const screenOptions = { headerShown: false };
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="SignIn" component={SignIn} />
+      {/* <Stack.Screen name="SignIn" component={SignIn} /> */}
+      <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
   );
 };
