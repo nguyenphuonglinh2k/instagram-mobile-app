@@ -8,66 +8,66 @@ import {
     View,
     Text
 } from "react-native";
-import { ImageSource } from "assets";
 import { MainLayout } from "layouts";
 
-// const CommentDetail = () => {
-//     return (
-//         <View style={styles.commentItem}>
-//             <View>
-//                 <Image style={styles.avatar} source={{ uri: "https://img1.ak.crunchyroll.com/i/spire3/a4d7780b3670404893ffde7180f10f331652967967_large.jpg" }} />
-//             </View>
-//             <View>
-//                 <View style={styles.commentFull}>
-//                     <Text style={styles.usernameComment}>Elizabeth</Text>
-//                     <Text>Beautiful !</Text>
-//                 </View>
-//                 <View>
-//                     <Text>3h</Text>
-//                 </View>
-//             </View>
-//         </View>
-//     )
-// }
+import { LocationArrowIcon } from "../../../icons";
+
 
 
 const Comment = () => {
     return (
-        <MainLayout isBackScreen>
+        <MainLayout isBackScreen >
+            <LocationArrowIcon style={styles.shareIcon} />
             <ScrollView style={styles.wrapper}>
-                {/* <CommentDetail /> */}
-                <View style={styles.floatBottom}>
-                    <View style={styles.comment}>
+                <View style={styles.test}>
+                    <View style={styles.commentItem}>
                         <Image style={styles.avatar} source={{ uri: "https://img1.ak.crunchyroll.com/i/spire3/a4d7780b3670404893ffde7180f10f331652967967_large.jpg" }} />
-                        <View style={styles.commentText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholderTextColor="#3A4664B2"
-                                placeholder="Write comment here"
-                            />
+                        <View>
+                            <View className={styles.commentContent}>
+                                <Text style={styles.commentAuth}>Elizaberth</Text>
+                                <Text style={styles.commentAuth}>Wow!</Text>
+                            </View>
+                            <Text>3h</Text>
                         </View>
                     </View>
                 </View>
             </ScrollView>
-
+            <View style={styles.commentInput}>
+                <Image style={styles.avatar} source={{ uri: "https://img1.ak.crunchyroll.com/i/spire3/a4d7780b3670404893ffde7180f10f331652967967_large.jpg" }} />
+                <View style={styles.commentText}>
+                    <TextInput
+                        style={styles.input}
+                        backgroundColor="rgba(196, 196, 196, 0.35)"
+                        borderColor="transparent"
+                        placeholderTextColor="#3A4664B2"
+                        placeholder="Write comment here"
+                    />
+                </View>
+            </View>
         </MainLayout>
     )
 };
 
 const styles = StyleSheet.create({
 
-    comment: {
-        height: 70,
+    wrapper: {
+        padding: 16,
+    },
+    shareIcon: {
+        position: "absolute",
+        top: 15,
+        right: 18
+    },
+    commentInput: {
+        position: "absolute",
+        bottom: 0,
+        left: 18,
         flexDirection: "row",
         alignItems: "center",
     },
     commentText: {
         width: "90%",
     },
-    floatBottom: {
-        marginTop: "154%"
-    }
-    ,
     input: {
         margin: 15,
         height: 40,
@@ -76,11 +76,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 30,
         paddingLeft: 20,
-    },
-    wrapper: {
-        flex: 1,
-        flexDirection: "column",
-        padding: 16,
     },
     avatar: {
         height: 40,

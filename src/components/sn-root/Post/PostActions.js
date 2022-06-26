@@ -5,9 +5,9 @@ import { HeartIcon, CommentIcon, LocationArrowIcon } from "../../../icons";
 
 
 const PostActions = ({ style, navigation, ...otherProps }) => {
- 
 
-  const navigateScren = ()=>{
+
+  const navigateScreen = () => {
     navigation.navigate("Comment")
   }
 
@@ -20,7 +20,7 @@ const PostActions = ({ style, navigation, ...otherProps }) => {
       <TouchableOpacity
         style={styles.marginRight}
       >
-        <CommentIcon onPress={navigateScren}/>
+        <CommentIcon onPress={navigateScreen} />
       </TouchableOpacity>
       <TouchableOpacity>
         <LocationArrowIcon />
