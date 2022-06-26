@@ -75,14 +75,19 @@ const SignIn = () => {
         label="Forgot Password?"
         labelProps={{ style: styles.textButton }}
       />
-      <ContainedButton
-        onPress={onLogin}
-        label="Login"
-        style={styles.gradientButton}
-      />
+      <View style={{ display: "flex", alignSelf: "center" }}>
+        <ContainedButton
+          onPress={onLogin}
+          label="Login"
+          style={styles.gradientButton}
+        />
+      </View>
+
       <View style={styles.signUpWrapper}>
         <Text style={{ color: "#3A4664" }}>Don’t have an account? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(RouteName.SIGN_UP)}
+        >
           <Image
             style={styles.signUpText}
             source={ImageSource.SignUpTextImage}
@@ -113,7 +118,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   gradientButton: {
-    alignItems: "center",
     marginTop: 30,
   },
   signUpText: {

@@ -25,7 +25,7 @@ const App = () => {
   const getToken = async () => {
     const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
 
-    setIsLoggedIn(token ? true : false);
+    // setIsLoggedIn(token ? true : false);
   };
 
   useEffect(() => {

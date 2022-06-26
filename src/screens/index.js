@@ -6,6 +6,7 @@ import Comment from "./rootScreen/Comment";
 
 // Auth screen
 import SignIn from "./authScreen/SignIn";
+import SignUp from "./authScreen/SignUp";
 
 // Create screen
 import CreatePost from "./createScreen/CreatePost";
@@ -13,4 +14,4 @@ import CreatePost from "./createScreen/CreatePost";
 // Profile screen
 import Profile from "./profileScreen/Profile";
 
-export { SplashScreen, Timeline, SignIn, CreatePost, Profile, Comment };
+export { SplashScreen, Timeline, SignIn, SignUp, CreatePost, Profile, Comment };
