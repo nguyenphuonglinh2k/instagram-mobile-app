@@ -11,15 +11,20 @@ import {
 } from "components";
 import { PROFILE_TAB_VALUES } from "components/sn-profile/ProfileTabBar";
 import { SettingIcon } from "icons";
+import { useNavigation } from "@react-navigation/native";
+import { RouteName } from "const/path.const";
 
 const Profile = () => {
+  const navigation = useNavigation();
   const [selectedTab, setSelectedTab] = useState(PROFILE_TAB_VALUES.photo);
 
   return (
     <MainLayout
       headerProps={{
         headerRight: (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(RouteName.SETTING)}
+          >
             <SettingIcon />
           </TouchableOpacity>
         ),

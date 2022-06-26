@@ -5,4 +5,5 @@ export const RouteName = {
   CREATE_POST: "CREATE_POST",
   PROFILE: "PROFILE",
   COMMENT: "COMMENT",
+  SETTING: "SETTING",
 };

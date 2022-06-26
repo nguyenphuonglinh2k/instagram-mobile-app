@@ -12,6 +12,11 @@ import Gallery from "./sn-profile/Gallery";
 import InputBox from "./sn-comment/InputBox";
 import Chats from "./sn-comment/Chats";
 
+// Setting screen
+import AvatarChange from "./sn-setting/AvatarChange";
+import UserInfoChange from "./sn-setting/UserInfoChange";
+import RedirectActions from "./sn-setting/RedirectActions";
+
 // Common
 import ContainedButton from "./ContainedButton";
 import TextButton from "./TextButton";
@@ -36,4 +41,7 @@ export {
   OutlinedButton,
   InputBox,
   Chats,
+  AvatarChange,
+  UserInfoChange,
+  RedirectActions,
 };

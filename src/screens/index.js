@@ -13,5 +13,15 @@ import CreatePost from "./createScreen/CreatePost";
 
 // Profile screen
 import Profile from "./profileScreen/Profile";
+import Setting from "./profileScreen/Setting";
 
-export { SplashScreen, Timeline, SignIn, SignUp, CreatePost, Profile, Comment };
+export {
+  SplashScreen,
+  Timeline,
+  SignIn,
+  SignUp,
+  CreatePost,
+  Profile,
+  Comment,
+  Setting,
+};

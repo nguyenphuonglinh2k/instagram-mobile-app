@@ -8,6 +8,7 @@ import {
   CreatePost,
   Profile,
   Comment,
+  Setting,
 } from "screens";
 import { RouteName } from "const/path.const";
 
@@ -37,6 +38,7 @@ function ProfileStack() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={RouteName.PROFILE} component={Profile} />
+      <Stack.Screen name={RouteName.SETTING} component={Setting} />
     </Stack.Navigator>
   );
 }
