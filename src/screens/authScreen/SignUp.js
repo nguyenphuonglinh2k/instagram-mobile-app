@@ -44,7 +44,7 @@ const SignUp = () => {
             />
             <ContainedButton
                 onPress={onLogin}
-                label="Login"
+                label="Sign up"
                 style={styles.gradientButton}
             />
             <View style={styles.signInWrapper}>

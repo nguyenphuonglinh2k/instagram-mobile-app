@@ -1,7 +1,6 @@
 import React from "react";
 import {
     ScrollView,
-    TouchableOpacity,
     Image,
     StyleSheet,
     TextInput,
@@ -69,7 +68,6 @@ const Comment = () => {
 };
 
 const styles = StyleSheet.create({
-
     wrapper: {
         padding: 16,
     },

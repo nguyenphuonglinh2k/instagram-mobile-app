@@ -30,13 +30,13 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={navTheme}>
-        {splash ? (
+        {/* {splash ? (
           <SplashScreen />
         ) : isLoggedIn ? (
           <TabNavigation />
-        ) : (
-          <AuthStack />
-        )}
+        ) : ( */}
+        <AuthStack />
+        {/* )} */}
       </NavigationContainer>
     </SafeAreaProvider>
   );
