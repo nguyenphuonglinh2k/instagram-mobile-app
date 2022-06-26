@@ -9,6 +9,9 @@ import LocationArrowIcon from "./LocationArrowIcon";
 import HeartIcon from "./HeartIcon";
 import ArrowIcon from "./ArrowIcon";
 import CheckIcon from "./CheckIcon";
+import PhotoIcon from "./PhotoIcon";
+import VideoIcon from "./VideoIcon";
+import SettingIcon from "./SettingIcon";
 
 export {
   HomeIcon,
@@ -22,4 +25,7 @@ export {
   HeartIcon,
   ArrowIcon,
   CheckIcon,
+  PhotoIcon,
+  VideoIcon,
+  SettingIcon,
 };

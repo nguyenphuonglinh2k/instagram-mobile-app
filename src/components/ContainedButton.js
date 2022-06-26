@@ -6,6 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 const ContainedButton = ({
   label,
   onPress,
+  style,
   labelProps,
   gradientProps,
   ...otherProps
@@ -14,7 +15,12 @@ const ContainedButton = ({
   const { style: gradientStyle, ...otherGradientProps } = gradientProps;
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.5} {...otherProps}>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.5}
+      style={[{ width: 160 }, style]}
+      {...otherProps}
+    >
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -41,7 +47,7 @@ const defaultStyles = StyleSheet.create({
   linearGradient: {
     borderRadius: 30,
     overflow: "hidden",
-    width: 160,
+    width: "100%",
   },
 });
 
@@ -50,6 +56,7 @@ export default ContainedButton;
 ContainedButton.propTypes = {
   label: PropTypes.string,
   onPress: PropTypes.func,
+  style: PropTypes.object,
   labelProps: PropTypes.shape({
     style: PropTypes.object,
   }),
@@ -61,4 +68,5 @@ ContainedButton.propTypes = {
 ContainedButton.defaultProps = {
   labelProps: { style: {} },
   gradientProps: { style: {} },
+  style: {},
 };

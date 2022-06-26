@@ -1,15 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { View, StyleSheet, Image } from "react-native";
-import { NotificationIcon } from "icons";
 import { ImageSource } from "assets";
 
-const Header = () => {
+const Header = ({ headerRight }) => {
   return (
     <View style={styles.root}>
       <Image style={styles.logo} source={ImageSource.LogoImage} />
-      <NotificationIcon />
+      {headerRight}
     </View>
   );
+};
+
+Header.propTypes = {
+  headerRight: PropTypes.node,
 };
 
 const styles = StyleSheet.create({
