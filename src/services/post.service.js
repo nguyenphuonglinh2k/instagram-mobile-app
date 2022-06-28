@@ -2,6 +2,7 @@ import Api from "./api";
 import axios from "axios";
 import { ApiConstant } from "const";
 import store from "reduxStore";
+import StringFormat from "string-format";
 
 const axiosConfig = {
   headers: {
@@ -20,6 +21,16 @@ export const postCloudinaryUpload = async data => {
 };
 
 export const getPosts = () => Api.get(ApiConstant.GET_POSTS);
+
+export const getMyLikes = userId =>
+  Api.get(StringFormat(ApiConstant.GET_MY_LIKE, { userId }), axiosConfig);
+
+export const postActionLike = (data, userId) =>
+  Api.post(
+    StringFormat(ApiConstant.POST_ACTION_LIKE, { userId }),
+    data,
+    axiosConfig,
+  );
 
 export const postMyPost = data =>
   Api.post(ApiConstant.POST_MY_POST, data, axiosConfig);

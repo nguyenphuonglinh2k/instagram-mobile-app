@@ -73,8 +73,8 @@ const ApiContainer = class {
     ) {
       // Handle 401
       // navigation.navigate(RouteName.SIGN_IN);
-      console.log("401");
-      clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
+      console.log("handleError 401");
+      // clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
     }
     if (
       error.code === requestAbortCode ||

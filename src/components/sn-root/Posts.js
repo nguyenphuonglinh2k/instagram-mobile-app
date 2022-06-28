@@ -1,13 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
 import Post from "./Post";
 import { PostService } from "services";
 import { ApiConstant } from "const";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [likes, setLikes] = useState([]);
 
-  const getPosts = async () => {
+  const authUser = useSelector(({ appRedux }) => appRedux.user);
+
+  const onGetLikeAction = useCallback(async () => {
+    const userId = authUser._id;
+    if (!userId) return;
+
+    try {
+      const response = await PostService.getMyLikes(userId);
+
+      if (response.status === ApiConstant.STT_OK) {
+        const responseData = response.data;
+        setLikes(responseData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [authUser]);
+
+  const getPosts = useCallback(async () => {
     try {
       const response = await PostService.getPosts();
 
@@ -17,17 +37,26 @@ const Posts = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    onGetLikeAction();
+  }, [onGetLikeAction]);
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   return (
     <FlatList
       data={posts}
       renderItem={({ item, index }) => (
-        <Post data={item} style={index !== 0 && styles.item} />
+        <Post
+          data={item}
+          likes={likes}
+          onRefetchLikes={onGetLikeAction}
+          style={index !== 0 && styles.item}
+        />
       )}
       keyExtractor={(_, index) => index}
       style={styles.list}

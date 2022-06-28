@@ -5,20 +5,22 @@ import { HeartIcon, CommentIcon, LocationArrowIcon } from "icons";
 import { useNavigation } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
 
-const PostActions = ({ style, ...otherProps }) => {
+const PostActions = ({ isLiked, style, onToggleLike, ...otherProps }) => {
   const navigation = useNavigation();
 
   return (
     <View style={[styles.root, style]} {...otherProps}>
-      <TouchableOpacity style={styles.marginRight}>
-        <HeartIcon />
+      <TouchableOpacity style={styles.marginRight} onPress={onToggleLike}>
+        <HeartIcon isFilled={isLiked} color={isLiked ? "#FF4768" : "#292D32"} />
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.marginRight}
         onPress={() => navigation.navigate(RouteName.COMMENT)}
       >
         <CommentIcon />
       </TouchableOpacity>
+
       <TouchableOpacity>
         <LocationArrowIcon />
       </TouchableOpacity>
@@ -28,6 +30,8 @@ const PostActions = ({ style, ...otherProps }) => {
 
 PostActions.propTypes = {
   style: PropTypes.object,
+  isLiked: PropTypes.bool,
+  onToggleLike: PropTypes.func,
 };
 
 PostActions.defaultProps = {

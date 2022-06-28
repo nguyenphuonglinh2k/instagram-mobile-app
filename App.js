@@ -6,8 +6,8 @@ import { AuthStack } from "./src/navigation/StackNavigator";
 import { SplashScreen } from "screens";
 import clientStorage from "utils/clientStorage";
 import { AppConstant } from "const";
-import { Provider } from "react-redux";
-import store from "reduxStore";
+import { useDispatch } from "react-redux";
+import AppActions from "reduxStore/app.redux";
 
 const navTheme = {
   ...DefaultTheme,
@@ -19,13 +19,16 @@ const navTheme = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
   const [splash, setSplash] = useState(true);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const getToken = async () => {
     const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+    const user = await clientStorage.get(AppConstant.USER_KEY);
 
+    dispatch(AppActions.appSuccess({ user: JSON.parse(user), token }));
     setIsLoggedIn(token ? true : false);
   };
 
@@ -44,15 +47,13 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={navTheme}>
-        <Provider store={store}>
-          {splash ? (
-            <SplashScreen />
-          ) : isLoggedIn ? (
-            <TabNavigation />
-          ) : (
-            <AuthStack />
-          )}
-        </Provider>
+        {splash ? (
+          <SplashScreen />
+        ) : isLoggedIn ? (
+          <TabNavigation />
+        ) : (
+          <AuthStack />
+        )}
       </NavigationContainer>
     </SafeAreaProvider>
   );

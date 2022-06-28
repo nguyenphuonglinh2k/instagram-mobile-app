@@ -40,8 +40,6 @@ const SignIn = () => {
 
         clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
         clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));
-
-        navigation.navigate(RouteName.TIMELINE);
       }
     } catch (error) {
       console.error(error);
