@@ -24,6 +24,7 @@ import CommonTextInput from "./CommonTextInput";
 import LoadingSpinner from "./LoadingSpinner";
 import TextGradient from "./TextGradient";
 import OutlinedButton from "./OutlinedButton";
+import CommonModal from "./CommonModal";
 
 export {
   Post,
@@ -44,4 +45,5 @@ export {
   AvatarChange,
   UserInfoChange,
   RedirectActions,
+  CommonModal,
 };

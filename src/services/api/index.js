@@ -30,8 +30,6 @@ const ApiContainer = class {
 
   async get(endpoint, params = {}) {
     try {
-      // const authToken = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
-
       const response = await axiosInstance.get(endpoint, params);
       return response;
     } catch (error) {
@@ -68,8 +66,15 @@ const ApiContainer = class {
   }
 
   handleError(error) {
-    if (error.response && error.response.status === ApiConstant.STT_OK) {
+    console.log("run");
+    if (
+      error.response &&
+      error.response.status === ApiConstant.STT_UNAUTHORIZED
+    ) {
       // Handle 401
+      // navigation.navigate(RouteName.SIGN_IN);
+      console.log("401");
+      clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
     }
     if (
       error.code === requestAbortCode ||

@@ -14,6 +14,7 @@ const navTheme = {
   colors: {
     ...DefaultTheme.colors,
     background: "#FFF",
+    text: "#262626",
   },
 };
 

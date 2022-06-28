@@ -9,6 +9,10 @@ import {
   Profile,
   Comment,
   Setting,
+  ForgotPassword,
+  ResetPassword,
+  Following,
+  Followers,
 } from "screens";
 import { RouteName } from "const/path.const";
 
@@ -21,6 +25,10 @@ const AuthStack = () => {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={RouteName.SIGN_IN} component={SignIn} />
       <Stack.Screen name={RouteName.SIGN_UP} component={SignUp} />
+      <Stack.Screen
+        name={RouteName.FORGOT_PASSWORD}
+        component={ForgotPassword}
+      />
     </Stack.Navigator>
   );
 };
@@ -39,6 +47,11 @@ function ProfileStack() {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={RouteName.PROFILE} component={Profile} />
       <Stack.Screen name={RouteName.SETTING} component={Setting} />
+      <Stack.Screen name={RouteName.RESET_PASSWORD}>
+        {props => <ResetPassword isBackScreen {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name={RouteName.FOLLOWING} component={Following} />
+      <Stack.Screen name={RouteName.FOLLOWERS} component={Followers} />
     </Stack.Navigator>
   );
 }

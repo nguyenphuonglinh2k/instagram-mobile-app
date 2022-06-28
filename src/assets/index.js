@@ -7,4 +7,6 @@ export const ImageSource = {
   // Text gradient
   SignInTextImage: require("./img-sign-in-text.png"),
   SignUpTextImage: require("./img-sign-up-text.png"),
+  ForgotPasswordText: require("./img-forgot-password-text.png"),
+  ResetPasswordText: require("./img-reset-password-text.png"),
 };

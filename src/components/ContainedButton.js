@@ -9,6 +9,7 @@ const ContainedButton = ({
   style,
   labelProps,
   gradientProps,
+  disabled,
   ...otherProps
 }) => {
   const { style: labelStyle, ...otherLabelProps } = labelProps;
@@ -16,7 +17,7 @@ const ContainedButton = ({
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={!disabled && onPress}
       activeOpacity={0.5}
       style={[{ width: 160 }, style]}
       {...otherProps}
@@ -26,7 +27,11 @@ const ContainedButton = ({
         end={{ x: 1, y: 1 }}
         locations={[0, 0.75]}
         colors={["#9796F0", "#FBC7D4"]}
-        style={[defaultStyles.linearGradient, gradientStyle]}
+        style={[
+          { opacity: disabled ? 0.4 : 1 },
+          defaultStyles.linearGradient,
+          gradientStyle,
+        ]}
         {...otherGradientProps}
       >
         <Text style={[defaultStyles.label, labelStyle]} {...otherLabelProps}>
@@ -63,6 +68,7 @@ ContainedButton.propTypes = {
   gradientProps: PropTypes.shape({
     style: PropTypes.object,
   }),
+  disabled: PropTypes.bool,
 };
 
 ContainedButton.defaultProps = {

@@ -7,6 +7,8 @@ import Comment from "./rootScreen/Comment";
 // Auth screen
 import SignIn from "./authScreen/SignIn";
 import SignUp from "./authScreen/SignUp";
+import ForgotPassword from "./authScreen/ForgotPassword";
+import ResetPassword from "./authScreen/ResetPassword";
 
 // Create screen
 import CreatePost from "./createScreen/CreatePost";
@@ -14,6 +16,8 @@ import CreatePost from "./createScreen/CreatePost";
 // Profile screen
 import Profile from "./profileScreen/Profile";
 import Setting from "./profileScreen/Setting";
+import Following from "./profileScreen/Following";
+import Followers from "./profileScreen/Followers";
 
 export {
   SplashScreen,
@@ -24,4 +28,8 @@ export {
   Profile,
   Comment,
   Setting,
+  ForgotPassword,
+  ResetPassword,
+  Following,
+  Followers,
 };
