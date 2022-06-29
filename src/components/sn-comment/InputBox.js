@@ -1,9 +1,36 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { FaceIcon, LocationArrowIcon } from "icons";
+import { PostService } from "services";
+import { useSelector } from "react-redux";
+import { ApiConstant } from "const/";
 
-const InputBox = ({ style, ...otherProps }) => {
+const InputBox = ({ style, postId, onRefetchData, ...otherProps }) => {
+  const [message, onChangeMessage] = useState("");
+
+  const authUser = useSelector(({ appRedux }) => appRedux.user);
+
+  const onPostComment = async () => {
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage || !postId || !authUser._id) return;
+
+    try {
+      const response = await PostService.postComment(
+        { caption: trimmedMessage },
+        postId,
+        authUser._id,
+      );
+
+      if (response.status === ApiConstant.STT_OK) {
+        onRefetchData();
+        onChangeMessage("");
+      }
+    } catch (error) {
+      // TODO: Display error msg
+    }
+  };
+
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
       <TouchableOpacity>
@@ -11,11 +38,13 @@ const InputBox = ({ style, ...otherProps }) => {
       </TouchableOpacity>
       <TextInput
         style={styles.input}
+        value={message}
+        onChangeText={onChangeMessage}
         placeholderTextColor="#3A4664B2"
         placeholder="Write comment here"
         multiline
       />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPostComment}>
         <LocationArrowIcon style={styles.rotate} />
       </TouchableOpacity>
     </View>
@@ -24,6 +53,8 @@ const InputBox = ({ style, ...otherProps }) => {
 
 InputBox.propTypes = {
   style: PropTypes.object,
+  postId: PropTypes.string.isRequired,
+  onRefetchData: PropTypes.func,
 };
 
 InputBox.defaultProps = {
@@ -42,6 +73,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: "rgba(196, 196, 196, 0.35)",
+    paddingVertical: 6,
     paddingHorizontal: 16,
     borderRadius: 30,
     maxHeight: 75,

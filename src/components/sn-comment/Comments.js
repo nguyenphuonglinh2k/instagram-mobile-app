@@ -1,32 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FlatList, StyleSheet } from "react-native";
 import CommentItem from "./CommentItem";
-import { PostService } from "services";
-import { ApiConstant } from "const";
 
-const Comments = ({ postId, ...otherProps }) => {
-  const [comments, setComments] = useState([]);
-
-  const onGetComments = useCallback(async () => {
-    if (!postId) return;
-
-    try {
-      const response = await PostService.getComments(postId);
-
-      if (response.status === ApiConstant.STT_OK) {
-        const responseData = response.data;
-        setComments(responseData);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [postId]);
-
-  useEffect(() => {
-    onGetComments();
-  }, [onGetComments]);
-
+const Comments = ({ comments, ...otherProps }) => {
   return (
     <FlatList
       data={comments}
@@ -39,7 +16,7 @@ const Comments = ({ postId, ...otherProps }) => {
 };
 
 Comments.propTypes = {
-  postId: PropTypes.string,
+  comments: PropTypes.array,
 };
 
 const styles = StyleSheet.create({
