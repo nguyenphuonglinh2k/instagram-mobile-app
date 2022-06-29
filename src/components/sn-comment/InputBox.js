@@ -1,5 +1,6 @@
 import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
+import { useToast } from "react-native-toast-notifications";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { FaceIcon, LocationArrowIcon } from "icons";
 import { PostService } from "services";
@@ -7,6 +8,7 @@ import { useSelector } from "react-redux";
 import { ApiConstant } from "const/";
 
 const InputBox = ({ style, postId, onRefetchData, ...otherProps }) => {
+  const toast = useToast();
   const [message, onChangeMessage] = useState("");
 
   const authUser = useSelector(({ appRedux }) => appRedux.user);
@@ -28,6 +30,7 @@ const InputBox = ({ style, postId, onRefetchData, ...otherProps }) => {
       }
     } catch (error) {
       // TODO: Display error msg
+      toast.show("Cannot comment. Please try again!", { type: "danger" });
     }
   };
 

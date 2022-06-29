@@ -10,10 +10,17 @@ import {
   ExploreStack,
 } from "./StackNavigator";
 
-const AvatarIcon = () => {
+// eslint-disable-next-line react/prop-types
+const AvatarIcon = ({ isFocused }) => {
   return (
     <Image
-      style={{ height: 24, width: 24, borderRadius: 20 }}
+      style={{
+        height: 24,
+        width: 24,
+        borderRadius: 20,
+        borderColor: "#000",
+        borderWidth: isFocused ? 2 : 0,
+      }}
       source={{
         uri: "https://i.pinimg.com/736x/10/c9/c0/10c9c02224ae9c08ba781bae2a856675.jpg",
       }}
@@ -39,7 +46,7 @@ export default function TabNavigator() {
         name="HomeStack"
         component={HomeStack}
         options={() => ({
-          tabBarIcon: ({ focused }) => <HomeIcon />,
+          tabBarIcon: ({ focused }) => <HomeIcon isFocused={focused} />,
         })}
       />
 
@@ -47,7 +54,7 @@ export default function TabNavigator() {
         name="Explore"
         component={ExploreStack}
         options={() => ({
-          tabBarIcon: ({ focused }) => <SearchIcon />,
+          tabBarIcon: ({ focused }) => <SearchIcon isFocused={focused} />,
         })}
       />
 
@@ -55,7 +62,7 @@ export default function TabNavigator() {
         name="Create"
         component={CreatePostStack}
         options={() => ({
-          tabBarIcon: ({ focused }) => <RoundPlusIcon />,
+          tabBarIcon: ({ focused }) => <RoundPlusIcon isFocused={focused} />,
         })}
       />
 
@@ -63,14 +70,14 @@ export default function TabNavigator() {
         name="Chat"
         component={ChatStack}
         options={() => ({
-          tabBarIcon: ({ focused }) => <MessageIcon />,
+          tabBarIcon: ({ focused }) => <MessageIcon isFocused={focused} />,
         })}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileStack}
         options={() => ({
-          tabBarIcon: ({ focused }) => <AvatarIcon />,
+          tabBarIcon: ({ focused }) => <AvatarIcon isFocused={focused} />,
         })}
       />
     </Tab.Navigator>

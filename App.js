@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { ToastProvider } from "react-native-toast-notifications";
 import TabNavigation from "navigation/TabNavigator";
 import { AuthStack } from "./src/navigation/StackNavigator";
 import { SplashScreen } from "screens";
@@ -51,15 +52,22 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={navTheme}>
-        {splash ? (
-          <SplashScreen />
-        ) : isLoggedIn ? (
-          <TabNavigation />
-        ) : (
-          <AuthStack />
-        )}
-      </NavigationContainer>
+      <ToastProvider
+        swipeEnabled
+        duration={3000}
+        placement="top"
+        animationType="slide-in"
+      >
+        <NavigationContainer theme={navTheme}>
+          {splash ? (
+            <SplashScreen />
+          ) : isLoggedIn ? (
+            <TabNavigation />
+          ) : (
+            <AuthStack />
+          )}
+        </NavigationContainer>
+      </ToastProvider>
     </SafeAreaProvider>
   );
 };

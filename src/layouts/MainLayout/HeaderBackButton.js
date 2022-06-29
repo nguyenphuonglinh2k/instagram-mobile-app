@@ -22,7 +22,7 @@ const HeaderBackButton = ({
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
       <View style={styles.headerLeft}>
-        <TouchableOpacity onPress={onGoBack}>
+        <TouchableOpacity onPress={onGoBack} style={{ paddingRight: 16 }}>
           <ArrowIcon />
         </TouchableOpacity>
         {Boolean(title) && (
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: 16,
     color: "#000",
     fontWeight: "700",
     fontSize: 16,

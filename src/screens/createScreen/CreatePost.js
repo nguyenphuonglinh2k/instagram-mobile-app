@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   ScrollView,
   TouchableOpacity,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
+import { useToast } from "react-native-toast-notifications";
 import { useNavigation } from "@react-navigation/native";
 import DocumentPicker from "react-native-document-picker";
 import { ImageSource } from "assets";
@@ -19,6 +20,8 @@ import { LoadingSpinner } from "components";
 
 const CreatePost = () => {
   const navigation = useNavigation();
+  const toast = useToast();
+
   const [imageUri, setImageUri] = useState();
   const [content, onChangeContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +52,7 @@ const CreatePost = () => {
         setImageUri(responseData.secureUrl);
       }
     } catch (err) {
-      console.error(err);
+      toast.show("Cannot create post. Please try again!", { type: "danger" });
     } finally {
       setIsLoading(false);
     }
@@ -64,6 +67,7 @@ const CreatePost = () => {
       });
 
       if (response.status === ApiConstant.STT_CREATED) {
+        getPosts();
         navigation.navigate(RouteName.TIMELINE);
         resetData();
       }
@@ -72,6 +76,14 @@ const CreatePost = () => {
       console.error(error);
     }
   };
+
+  const getPosts = useCallback(async () => {
+    try {
+      await PostService.getPosts();
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   const resetData = () => {
     setImageUri();
