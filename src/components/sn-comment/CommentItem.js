@@ -1,36 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Image, StyleSheet, Text, View } from "react-native";
+import moment from "moment";
+import { AppConstant } from "const";
 
-const Chat = ({ data, style, ...otherProps }) => {
+const CommentItem = ({ data, style, ...otherProps }) => {
+  const { user, caption, createdAt = "" } = data;
+
   return (
     <View style={[styles.root, style]} {...otherProps}>
-      <Image style={styles.avatar} source={{ uri: data.userImageSrc }} />
+      <Image style={styles.avatar} source={{ uri: user.userImageUrl }} />
 
       <View>
         <View style={styles.commentWrapper}>
-          <Text style={styles.username}>{data.name}</Text>
-          <Text style={{ color: "#262626" }}>{data.content}</Text>
+          <Text style={styles.username}>{user.name}</Text>
+          <Text style={{ color: "#262626" }}>{caption}</Text>
         </View>
 
-        <Text style={styles.time}>{data.time}</Text>
+        <Text style={styles.time}>
+          {moment(createdAt).format(AppConstant.DATE_TIME_FORMAT)}
+        </Text>
       </View>
     </View>
   );
 };
 
-Chat.propTypes = {
+CommentItem.propTypes = {
   data: PropTypes.shape({
-    userImageSrc: PropTypes.string,
-    name: PropTypes.string,
-    content: PropTypes.string,
-    time: PropTypes.string,
+    user: PropTypes.shape({
+      userImageUrl: PropTypes.string,
+      name: PropTypes.string,
+    }),
+    caption: PropTypes.string,
+    createdAt: PropTypes.string,
+    postId: PropTypes.string,
   }),
   style: PropTypes.object,
 };
 
-Chat.defaultProps = {
-  data: {},
+CommentItem.defaultProps = {
+  data: { user: {} },
   style: {},
 };
 
@@ -63,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Chat;
+export default CommentItem;

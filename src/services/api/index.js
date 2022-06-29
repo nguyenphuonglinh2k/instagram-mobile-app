@@ -66,15 +66,13 @@ const ApiContainer = class {
   }
 
   handleError(error) {
-    console.log("run");
     if (
       error.response &&
       error.response.status === ApiConstant.STT_UNAUTHORIZED
     ) {
       // Handle 401
-      // navigation.navigate(RouteName.SIGN_IN);
       console.log("handleError 401");
-      // clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
+      clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
     }
     if (
       error.code === requestAbortCode ||

@@ -45,7 +45,11 @@ const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
         imageContentSrc={imageContentSrc}
         style={styles.content}
       />
-      <PostActions isLiked={isLikedPost} onToggleLike={onToggleLike} />
+      <PostActions
+        postId={id}
+        isLiked={isLikedPost}
+        onToggleLike={onToggleLike}
+      />
     </View>
   );
 };

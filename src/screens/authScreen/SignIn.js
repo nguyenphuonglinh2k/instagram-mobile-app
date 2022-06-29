@@ -36,7 +36,9 @@ const SignIn = () => {
 
         const bearToken = `Bearer ${token}`;
 
-        dispatch(AppActions.appSuccess({ token: bearToken, user }));
+        dispatch(
+          AppActions.appSuccess({ token: bearToken, user, isLoggedIn: true }),
+        );
 
         clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
         clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));

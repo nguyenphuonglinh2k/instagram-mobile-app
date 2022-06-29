@@ -2,9 +2,13 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import { MainLayout } from "layouts";
 import { LocationArrowIcon } from "icons";
-import { InputBox, Chats } from "components";
+import { InputBox, Comments } from "components";
+import { useRoute } from "@react-navigation/native";
 
 const Comment = () => {
+  const route = useRoute();
+  const postId = route.params?.postId;
+
   return (
     <MainLayout
       isBackScreen
@@ -17,7 +21,7 @@ const Comment = () => {
         ),
       }}
     >
-      <Chats />
+      <Comments postId={postId} />
       <InputBox />
     </MainLayout>
   );

@@ -17,6 +17,7 @@ export const INITIAL_STATE = {
   status: null,
   user: {},
   token: null,
+  isLoggedIn: false,
 };
 
 /* ------------- Reducers ------------- */

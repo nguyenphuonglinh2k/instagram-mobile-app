@@ -29,3 +29,5 @@ export const GET_POSTS = "/posts";
 export const POST_MY_POST = "/post/create";
 export const GET_MY_LIKE = "/likes/{userId}";
 export const POST_ACTION_LIKE = "/post/like/{userId}";
+export const GET_COMMENTS = "/post/{postId}/comments";
+export const POST_COMMENT = "/post/{postId}/comment/{userId}";

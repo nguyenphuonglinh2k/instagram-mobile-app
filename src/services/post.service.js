@@ -25,9 +25,19 @@ export const getPosts = () => Api.get(ApiConstant.GET_POSTS);
 export const getMyLikes = userId =>
   Api.get(StringFormat(ApiConstant.GET_MY_LIKE, { userId }), axiosConfig);
 
+export const getComments = postId =>
+  Api.get(StringFormat(ApiConstant.GET_COMMENTS, { postId }), axiosConfig);
+
 export const postActionLike = (data, userId) =>
   Api.post(
     StringFormat(ApiConstant.POST_ACTION_LIKE, { userId }),
+    data,
+    axiosConfig,
+  );
+
+export const postComment = (data, postId, userId) =>
+  Api.post(
+    StringFormat(ApiConstant.POST_COMMENT, { userId, postId }),
     data,
     axiosConfig,
   );

@@ -5,7 +5,13 @@ import { HeartIcon, CommentIcon, LocationArrowIcon } from "icons";
 import { useNavigation } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
 
-const PostActions = ({ isLiked, style, onToggleLike, ...otherProps }) => {
+const PostActions = ({
+  postId,
+  isLiked,
+  style,
+  onToggleLike,
+  ...otherProps
+}) => {
   const navigation = useNavigation();
 
   return (
@@ -16,7 +22,7 @@ const PostActions = ({ isLiked, style, onToggleLike, ...otherProps }) => {
 
       <TouchableOpacity
         style={styles.marginRight}
-        onPress={() => navigation.navigate(RouteName.COMMENT)}
+        onPress={() => navigation.navigate(RouteName.COMMENT, { postId })}
       >
         <CommentIcon />
       </TouchableOpacity>
@@ -29,6 +35,7 @@ const PostActions = ({ isLiked, style, onToggleLike, ...otherProps }) => {
 };
 
 PostActions.propTypes = {
+  postId: PropTypes.string,
   style: PropTypes.object,
   isLiked: PropTypes.bool,
   onToggleLike: PropTypes.func,

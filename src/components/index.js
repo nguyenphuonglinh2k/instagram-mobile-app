@@ -10,7 +10,7 @@ import Gallery from "./sn-profile/Gallery";
 
 // Comment Screen
 import InputBox from "./sn-comment/InputBox";
-import Chats from "./sn-comment/Chats";
+import Comments from "./sn-comment/Comments";
 
 // Setting screen
 import AvatarChange from "./sn-setting/AvatarChange";
@@ -41,7 +41,7 @@ export {
   TextGradient,
   OutlinedButton,
   InputBox,
-  Chats,
+  Comments,
   AvatarChange,
   UserInfoChange,
   RedirectActions,
