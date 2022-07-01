@@ -1,24 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
+import { EmptyData } from "components";
 
-const Gallery = ({ style, ...otherProps }) => {
-  return (
+const Gallery = ({ data, style, ...otherProps }) => {
+  return data?.length ? (
     <View style={[styles.list, style]} {...otherProps}>
-      {MOCK_PHOTOS.map(({ imageUri }, index) => (
-        <Image key={index} source={{ uri: imageUri }} style={styles.image} />
+      {data.map(({ imageUrl }, index) => (
+        <Image key={index} source={{ uri: imageUrl }} style={styles.image} />
       ))}
     </View>
+  ) : (
+    <EmptyData />
   );
 };
 
-const MOCK_PHOTOS = Array.from(new Array(10)).map(() => ({
-  imageUri:
-    "https://cdn.dribbble.com/userupload/2955952/file/original-66b2631613c9699078fba66d2624af84.png?compress=1&resize=1024x683",
-}));
-
 Gallery.propTypes = {
   style: PropTypes.object,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageUrl: PropTypes.string,
+    }),
+  ),
 };
 
 const SPACE_HORIZONTAL = 32;

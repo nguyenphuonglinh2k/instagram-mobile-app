@@ -11,7 +11,7 @@ const InputBox = ({ style, postId, onRefetchData, ...otherProps }) => {
   const toast = useToast();
   const [message, onChangeMessage] = useState("");
 
-  const authUser = useSelector(({ appRedux }) => appRedux.user);
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const onPostComment = async () => {
     const trimmedMessage = message.trim();

@@ -26,6 +26,7 @@ export const POST_SIGN_UP = "/auth/signup";
 
 // Post
 export const GET_POSTS = "/posts";
+export const GET_MY_POSTS = "/posts/{userId}";
 export const POST_MY_POST = "/post/create";
 export const GET_MY_LIKE = "/likes/{userId}";
 export const POST_ACTION_LIKE = "/post/like/{userId}";

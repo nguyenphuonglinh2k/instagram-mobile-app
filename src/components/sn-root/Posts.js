@@ -9,33 +9,25 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
 
-  const authUser = useSelector(({ appRedux }) => appRedux.user);
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const onGetLikeAction = useCallback(async () => {
     const userId = authUser._id;
     if (!userId) return;
 
-    try {
-      const response = await PostService.getMyLikes(userId);
+    const response = await PostService.getMyLikes(userId);
 
-      if (response.status === ApiConstant.STT_OK) {
-        const responseData = response.data;
-        setLikes(responseData);
-      }
-    } catch (error) {
-      console.error(error);
+    if (response.status === ApiConstant.STT_OK) {
+      const responseData = response.data;
+      setLikes(responseData);
     }
   }, [authUser]);
 
   const getPosts = useCallback(async () => {
-    try {
-      const response = await PostService.getPosts();
+    const response = await PostService.getPosts();
 
-      if (response.status === ApiConstant.STT_OK) {
-        setPosts(response.data);
-      }
-    } catch (error) {
-      console.error(error);
+    if (response.status === ApiConstant.STT_OK) {
+      setPosts(response.data);
     }
   }, []);
 

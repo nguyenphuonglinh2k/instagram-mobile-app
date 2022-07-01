@@ -11,7 +11,7 @@ import { ApiConstant } from "const";
 const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
   const { caption: content, imageUrl: imageContentSrc, user, _id: id } = data;
 
-  const authUser = useSelector(({ appRedux }) => appRedux.user);
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const isLikedPost = useMemo(() => {
     const likedPost = likes.find(

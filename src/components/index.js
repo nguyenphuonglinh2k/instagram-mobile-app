@@ -25,6 +25,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import TextGradient from "./TextGradient";
 import OutlinedButton from "./OutlinedButton";
 import CommonModal from "./CommonModal";
+import EmptyData from "./EmptyData";
 
 export {
   Post,
@@ -46,4 +47,5 @@ export {
   UserInfoChange,
   RedirectActions,
   CommonModal,
+  EmptyData,
 };

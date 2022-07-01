@@ -14,7 +14,7 @@ import { ContainedButton, TextButton, CommonTextInput } from "components";
 import { AuthService } from "services";
 import clientStorage from "utils/clientStorage";
 import { RouteName } from "const/path.const";
-import AppActions from "reduxStore/app.redux";
+import AppActions from "reduxStore/auth.redux";
 import { useDispatch } from "react-redux";
 
 const SignIn = () => {
@@ -36,12 +36,12 @@ const SignIn = () => {
 
         const bearToken = `Bearer ${token}`;
 
-        dispatch(
-          AppActions.appSuccess({ token: bearToken, user, isLoggedIn: true }),
-        );
-
         clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
         clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));
+
+        dispatch(
+          AppActions.authSuccess({ token: bearToken, user, isLoggedIn: true }),
+        );
       }
     } catch (error) {
       console.error(error);

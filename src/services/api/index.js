@@ -1,6 +1,10 @@
 import axios from "axios";
 import { ApiConstant, AppConstant } from "const";
 import clientStorage from "utils/clientStorage";
+import * as RootNavigation from "navigation/RootNavigation";
+import { RouteName } from "const/path.const";
+import store from "reduxStore";
+import AuthActions from "reduxStore/auth.redux";
 
 const requestAbortCode = "ECONNABORTED";
 
@@ -72,16 +76,21 @@ const ApiContainer = class {
     ) {
       // Handle 401
       console.log("handleError 401");
-      clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
-    }
-    if (
+      store.dispatch(
+        AuthActions.authSuccess({
+          isLoggedIn: false,
+        }),
+      );
+      // clientStorage.remove(AppConstant.AUTH_TOKEN_KEY);
+    } else if (
       error.code === requestAbortCode ||
       ("response" in error && error.response === undefined)
     ) {
       // delay(1000);
       error.recall = true;
+    } else {
+      throw error;
     }
-    throw error;
   }
 };
 

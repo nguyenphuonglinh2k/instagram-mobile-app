@@ -6,7 +6,7 @@ import StringFormat from "string-format";
 
 const axiosConfig = {
   headers: {
-    authorization: store.getState()?.appRedux?.token,
+    authorization: store.getState()?.authRedux?.token,
   },
 };
 
@@ -22,8 +22,19 @@ export const postCloudinaryUpload = async data => {
 
 export const getPosts = () => Api.get(ApiConstant.GET_POSTS);
 
-export const getMyLikes = userId =>
-  Api.get(StringFormat(ApiConstant.GET_MY_LIKE, { userId }), axiosConfig);
+export const getMyPosts = userId => {
+  return Api.get(
+    StringFormat(ApiConstant.GET_MY_POSTS, { userId }),
+    axiosConfig,
+  );
+};
+
+export const getMyLikes = userId => {
+  return Api.get(
+    StringFormat(ApiConstant.GET_MY_LIKE, { userId }),
+    axiosConfig,
+  );
+};
 
 export const getComments = postId =>
   Api.get(StringFormat(ApiConstant.GET_COMMENTS, { postId }), axiosConfig);

@@ -2,12 +2,12 @@ import { createReducer, createActions } from "reduxsauce";
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  appSuccess: ["data"],
-  appFailure: ["data"],
-  appReset: [],
+  authSuccess: ["data"],
+  authFailure: ["data"],
+  authReset: [],
 });
 
-export const AppTypes = Types;
+export const AuthTypes = Types;
 export default Creators;
 
 /* ------------- Initial State ------------- */
@@ -15,6 +15,9 @@ export const INITIAL_STATE = {
   isFetching: false,
   error: null,
   status: null,
+  user: {},
+  token: null,
+  isLoggedIn: false,
 };
 
 /* ------------- Reducers ------------- */
@@ -43,9 +46,9 @@ export const reset = () => INITIAL_STATE;
 
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
-  [Types.APP_SUCCESS]: success,
-  [Types.APP_FAILURE]: failure,
-  [Types.APP_RESET]: reset,
+  [Types.AUTH_SUCCESS]: success,
+  [Types.AUTH_FAILURE]: failure,
+  [Types.AUTH_RESET]: reset,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

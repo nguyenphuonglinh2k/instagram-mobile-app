@@ -4,12 +4,12 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
 
-const ProfileStatistic = ({ style = {}, ...otherProps }) => {
+const ProfileStatistic = ({ totalPost, style = {}, ...otherProps }) => {
   const navigation = useNavigation();
 
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
-      <StatisticItem number={40} label="Posts" />
+      <StatisticItem number={totalPost} label="Posts" />
       <StatisticItem
         number={40}
         label="Followers"
@@ -45,6 +45,11 @@ StatisticItem.propTypes = {
 
 ProfileStatistic.propTypes = {
   style: PropTypes.object,
+  totalPost: PropTypes.number,
+};
+
+ProfileStatistic.defaultProps = {
+  totalPost: 0,
 };
 
 const styles = StyleSheet.create({

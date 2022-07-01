@@ -3,12 +3,14 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { ToastProvider } from "react-native-toast-notifications";
 import TabNavigation from "navigation/TabNavigator";
-import { AuthStack } from "./src/navigation/StackNavigator";
+import { AuthStack } from "navigation/StackNavigator";
+import { navigationRef } from "navigation/RootNavigation";
 import { SplashScreen } from "screens";
 import clientStorage from "utils/clientStorage";
 import { AppConstant } from "const";
+import { LoadingSpinner } from "components";
 import { useDispatch, useSelector } from "react-redux";
-import AppActions from "reduxStore/app.redux";
+import AuthActions from "reduxStore/auth.redux";
 
 const navTheme = {
   ...DefaultTheme,
@@ -23,14 +25,15 @@ const App = () => {
   const dispatch = useDispatch();
   const [splash, setSplash] = useState(true);
 
-  const isLoggedIn = useSelector(({ appRedux }) => appRedux.isLoggedIn);
+  const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
+  const isFetching = useSelector(({ appRedux }) => appRedux.isFetching);
 
   const getToken = useCallback(async () => {
     const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
     const user = await clientStorage.get(AppConstant.USER_KEY);
 
     dispatch(
-      AppActions.appSuccess({
+      AuthActions.authSuccess({
         user: JSON.parse(user),
         token,
         isLoggedIn: Boolean(token),
@@ -58,7 +61,7 @@ const App = () => {
         placement="top"
         animationType="slide-in"
       >
-        <NavigationContainer theme={navTheme}>
+        <NavigationContainer theme={navTheme} ref={navigationRef}>
           {splash ? (
             <SplashScreen />
           ) : isLoggedIn ? (
@@ -66,6 +69,7 @@ const App = () => {
           ) : (
             <AuthStack />
           )}
+          <LoadingSpinner isVisible={isFetching} />
         </NavigationContainer>
       </ToastProvider>
     </SafeAreaProvider>
