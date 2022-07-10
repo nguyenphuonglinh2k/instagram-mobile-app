@@ -17,10 +17,13 @@ import { toCamel } from "utils";
 import { RouteName } from "const/path.const";
 import { CheckIcon } from "icons";
 import { LoadingSpinner } from "components";
+import { useSelector } from "react-redux";
 
 const CreatePost = () => {
   const navigation = useNavigation();
   const toast = useToast();
+
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const [imageUri, setImageUri] = useState();
   const [content, onChangeContent] = useState("");
@@ -67,10 +70,13 @@ const CreatePost = () => {
   const onCreatePost = async () => {
     setIsLoading(true);
     try {
-      const response = await PostService.postMyPost({
-        imageUrl: imageUri,
-        caption: content,
-      });
+      const response = await PostService.postMyPost(
+        {
+          imageUrl: imageUri,
+          caption: content,
+        },
+        authUser._id,
+      );
 
       if (response.status === ApiConstant.STT_CREATED) {
         getPosts();

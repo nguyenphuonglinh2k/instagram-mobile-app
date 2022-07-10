@@ -24,3 +24,10 @@ export const putUserInfo = (userId, data) =>
     data,
     axiosConfig,
   );
+
+export const putFollowAction = (userId, followUserId) =>
+  Api.put(
+    StringFormat(ApiConstant.PUT_FOLLOW_ACTION, { userId, followUserId }),
+    {},
+    axiosConfig,
+  );

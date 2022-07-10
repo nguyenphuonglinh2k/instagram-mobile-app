@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, RefreshControl } from "react-native";
 import Post from "./Post";
 import { PostService } from "services";
 import { ApiConstant } from "const";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
 
@@ -23,12 +24,14 @@ const Posts = () => {
     }
   }, [authUser]);
 
-  const getPosts = useCallback(async () => {
+  const onGetPosts = useCallback(async () => {
+    setIsLoading(true);
     const response = await PostService.getPosts();
 
     if (response.status === ApiConstant.STT_OK) {
       setPosts(response.data);
     }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -36,8 +39,8 @@ const Posts = () => {
   }, [onGetLikeAction]);
 
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    onGetPosts();
+  }, [onGetPosts]);
 
   return (
     <FlatList
@@ -52,6 +55,9 @@ const Posts = () => {
       )}
       keyExtractor={(_, index) => index}
       style={styles.list}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={onGetPosts} />
+      }
     />
   );
 };

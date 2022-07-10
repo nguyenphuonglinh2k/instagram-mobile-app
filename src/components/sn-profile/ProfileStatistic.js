@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
 import { shallowEqual, useSelector } from "react-redux";
 
-const ProfileStatistic = ({ totalPost, style = {}, ...otherProps }) => {
+const ProfileStatistic = ({ userId, totalPost, style = {}, ...otherProps }) => {
   const navigation = useNavigation();
 
   const [followers, following] = useSelector(
@@ -19,12 +19,12 @@ const ProfileStatistic = ({ totalPost, style = {}, ...otherProps }) => {
       <StatisticItem
         number={followers.length}
         label="Followers"
-        onPress={() => navigation.navigate(RouteName.FOLLOWERS)}
+        onPress={() => navigation.navigate(RouteName.FOLLOWERS, { userId })}
       />
       <StatisticItem
         number={following.length}
         label="Following"
-        onPress={() => navigation.navigate(RouteName.FOLLOWING)}
+        onPress={() => navigation.navigate(RouteName.FOLLOWING, { userId })}
       />
     </View>
   );
@@ -52,6 +52,7 @@ StatisticItem.propTypes = {
 ProfileStatistic.propTypes = {
   style: PropTypes.object,
   totalPost: PropTypes.number,
+  userId: PropTypes.string,
 };
 
 ProfileStatistic.defaultProps = {

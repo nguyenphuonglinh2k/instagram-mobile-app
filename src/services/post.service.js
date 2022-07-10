@@ -30,6 +30,7 @@ export const getMyPosts = userId => {
 };
 
 export const getMyLikes = async userId => {
+  console.log(axiosConfig);
   return await Api.get(
     StringFormat(ApiConstant.GET_MY_LIKE, { userId }),
     axiosConfig,
@@ -53,5 +54,9 @@ export const postComment = (data, postId, userId) =>
     axiosConfig,
   );
 
-export const postMyPost = data =>
-  Api.post(ApiConstant.POST_MY_POST, data, axiosConfig);
+export const postMyPost = (data, userId) =>
+  Api.post(
+    StringFormat(ApiConstant.POST_MY_POST, { userId }),
+    data,
+    axiosConfig,
+  );

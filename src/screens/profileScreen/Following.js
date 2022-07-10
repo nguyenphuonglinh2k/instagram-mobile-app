@@ -3,8 +3,12 @@ import { StyleSheet, FlatList } from "react-native";
 import { MainLayout } from "layouts";
 import { useSelector } from "react-redux";
 import { FollowUserItem } from "components";
+import { useRoute } from "@react-navigation/core";
 
 const Following = () => {
+  const router = useRoute();
+  const userId = router.params.userId;
+
   const following = useSelector(({ userRedux }) => userRedux.following);
 
   return (
@@ -16,7 +20,9 @@ const Following = () => {
     >
       <FlatList
         data={following || []}
-        renderItem={({ item }) => <FollowUserItem data={item} />}
+        renderItem={({ item }) => (
+          <FollowUserItem data={item} userId={userId} hasUnfollowBtn />
+        )}
         keyExtractor={(_, i) => i}
         contentContainerStyle={styles.list}
       />

@@ -1,14 +1,47 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native";
 import { OutlinedButton, ContainedButton } from "components";
+import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "react-native-toast-notifications";
+import { UserService } from "services";
+import { ApiConstant } from "const/";
+import UserActions from "reduxStore/user.redux";
 
-const FollowUserItem = ({ data }) => {
-  const [isFollowing, setIsFollowing] = useState(true);
+const FollowUserItem = ({ userId, data, hasUnfollowBtn }) => {
+  const toast = useToast();
+  const dispatch = useDispatch();
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
-  const onToggleIsFollowing = () => {
-    setIsFollowing(!isFollowing);
-  };
+  const [isFollowing, setIsFollowing] = useState(data.isFollowing || true);
+
+  const isAuthUser = useMemo(() => {
+    return authUser._id === data._id;
+  }, [authUser, data]);
+
+  const onGetFollowersAndFollowing = useCallback(async () => {
+    dispatch(UserActions.getFollowersRequest(userId));
+    dispatch(UserActions.getFollowingRequest(userId));
+  }, [userId, dispatch]);
+
+  const onUpdateFollowAction = useCallback(async () => {
+    try {
+      const response = await UserService.putFollowAction(
+        authUser._id,
+        data._id,
+      );
+
+      if (response.status === ApiConstant.STT_OK) {
+        onGetFollowersAndFollowing();
+      }
+    } catch (error) {
+      toast.show("Cannot update. Please try again!", { type: "danger" });
+    }
+  }, [toast, authUser._id, data._id, onGetFollowersAndFollowing]);
+
+  useEffect(() => {
+    setIsFollowing(data.isFollowing);
+  }, [data.isFollowing]);
 
   return (
     <View style={styles.item}>
@@ -17,21 +50,26 @@ const FollowUserItem = ({ data }) => {
         <Text style={styles.name}>{data.name}</Text>
       </TouchableOpacity>
 
-      {isFollowing ? (
-        <OutlinedButton
-          onPress={onToggleIsFollowing}
-          label="Unfollow"
-          style={styles.gradientButton}
-          labelWrapperProps={{ style: styles.labelWrapper }}
-        />
-      ) : (
-        <ContainedButton
-          onPress={onToggleIsFollowing}
-          label="Follow"
-          style={styles.gradientButton}
-          labelProps={{ style: { paddingVertical: 6 } }}
-        />
-      )}
+      {!isAuthUser &&
+        (isFollowing ? (
+          hasUnfollowBtn ? (
+            <OutlinedButton
+              onPress={onUpdateFollowAction}
+              label="Unfollow"
+              style={styles.gradientButton}
+              labelWrapperProps={{ style: styles.labelWrapper }}
+            />
+          ) : (
+            <Text style={[styles.followingText]}>Following</Text>
+          )
+        ) : (
+          <ContainedButton
+            onPress={onUpdateFollowAction}
+            label="Follow"
+            style={styles.gradientButton}
+            labelProps={{ style: { paddingVertical: 6 } }}
+          />
+        ))}
     </View>
   );
 };
@@ -40,7 +78,11 @@ FollowUserItem.propTypes = {
   data: PropTypes.shape({
     userImageUrl: PropTypes.string,
     name: PropTypes.string,
+    _id: PropTypes.string,
+    isFollowing: PropTypes.bool,
   }),
+  hasUnfollowBtn: PropTypes.bool,
+  userId: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
@@ -75,6 +117,12 @@ const styles = StyleSheet.create({
   labelWrapper: {
     height: 28,
     width: 100,
+  },
+  followingText: {
+    color: "#BEA9E5",
+    fontWeight: "700",
+    width: 100,
+    textAlign: "center",
   },
 });
 

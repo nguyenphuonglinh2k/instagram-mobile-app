@@ -93,13 +93,18 @@ const Profile = () => {
           <Avatar />
           <ProfileStatistic
             totalPost={posts.length}
+            userId={userId}
             style={{ flex: 1, marginLeft: 24 }}
           />
         </View>
 
         <UserInfo userId={userId} style={{ marginTop: 10, marginBottom: 20 }} />
         {Boolean(userIdParams) && (
-          <FollowAndChatAction style={{ marginBottom: 16 }} />
+          <FollowAndChatAction
+            userId={userId}
+            onRefetchData={onGetFollowersAndFollowing}
+            style={{ marginBottom: 16 }}
+          />
         )}
 
         <ProfileTabBar
