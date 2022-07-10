@@ -26,7 +26,9 @@ const App = () => {
   const [splash, setSplash] = useState(true);
 
   const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
-  const isFetching = useSelector(({ appRedux }) => appRedux.isFetching);
+  const isFetching = useSelector(
+    ({ appRedux, userRedux }) => appRedux.isFetching || userRedux.isFetching,
+  );
 
   const getToken = useCallback(async () => {
     const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);

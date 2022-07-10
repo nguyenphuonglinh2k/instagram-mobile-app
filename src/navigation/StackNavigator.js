@@ -13,6 +13,7 @@ import {
   ResetPassword,
   Following,
   Followers,
+  ExploreGallery,
 } from "screens";
 import { RouteName } from "const/path.const";
 
@@ -35,32 +36,50 @@ const AuthStack = () => {
 
 const HomeStack = () => {
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Navigator
+      screenOptions={screenOptions}
+      initialRouteName={RouteName.TIMELINE}
+    >
       <Stack.Screen name={RouteName.TIMELINE} component={Timeline} />
       <Stack.Screen name={RouteName.COMMENT} component={Comment} />
+      {renderCommonProfile()}
     </Stack.Navigator>
   );
 };
 
-function ProfileStack() {
+const renderCommonProfile = () => {
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Group>
       <Stack.Screen name={RouteName.PROFILE} component={Profile} />
+      <Stack.Screen name={RouteName.FOLLOWING} component={Following} />
+      <Stack.Screen name={RouteName.FOLLOWERS} component={Followers} />
+    </Stack.Group>
+  );
+};
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={screenOptions}
+      initialRouteName={RouteName.PROFILE}
+    >
       <Stack.Screen name={RouteName.SETTING} component={Setting} />
       <Stack.Screen name={RouteName.RESET_PASSWORD}>
         {props => <ResetPassword isBackScreen {...props} />}
       </Stack.Screen>
-      <Stack.Screen name={RouteName.FOLLOWING} component={Following} />
-      <Stack.Screen name={RouteName.FOLLOWERS} component={Followers} />
+      {renderCommonProfile()}
     </Stack.Navigator>
   );
-}
+};
 
 const ExploreStack = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search</Text>
-    </View>
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={RouteName.EXPLORE_GALLERY}
+        component={ExploreGallery}
+      />
+    </Stack.Navigator>
   );
 };
 

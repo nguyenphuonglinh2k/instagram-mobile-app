@@ -52,7 +52,13 @@ const CreatePost = () => {
         setImageUri(responseData.secureUrl);
       }
     } catch (err) {
-      toast.show("Cannot create post. Please try again!", { type: "danger" });
+      if (DocumentPicker.isCancel(err)) {
+        toast.show("You have cancelled uploading!", {
+          type: "warning",
+        });
+      } else {
+        toast.show("Cannot create post. Please try again!", { type: "danger" });
+      }
     } finally {
       setIsLoading(false);
     }

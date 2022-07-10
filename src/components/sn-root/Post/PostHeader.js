@@ -3,9 +3,9 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { MenuIcon } from "icons";
 import PropTypes from "prop-types";
 
-const PostHeader = ({ avatarSrc, name }) => {
+const PostHeader = ({ avatarSrc, name, ...otherProps }) => {
   return (
-    <View style={styles.root}>
+    <TouchableOpacity style={styles.root} {...otherProps}>
       <View style={styles.userInfo}>
         <Image style={styles.avatar} source={{ uri: avatarSrc }} />
         <Text style={styles.name}>{name}</Text>
@@ -13,7 +13,7 @@ const PostHeader = ({ avatarSrc, name }) => {
       <TouchableOpacity activeOpacity={0.5}>
         <MenuIcon />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 

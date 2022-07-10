@@ -19,6 +19,9 @@ import Setting from "./profileScreen/Setting";
 import Following from "./profileScreen/Following";
 import Followers from "./profileScreen/Followers";
 
+// Explore screen
+import ExploreGallery from "./exploreScreen/ExploreGallery";
+
 export {
   SplashScreen,
   Timeline,
@@ -32,4 +35,5 @@ export {
   ResetPassword,
   Following,
   Followers,
+  ExploreGallery,
 };

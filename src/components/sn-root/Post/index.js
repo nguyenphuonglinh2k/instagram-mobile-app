@@ -7,8 +7,11 @@ import PostActions from "./PostActions";
 import { useSelector } from "react-redux";
 import { PostService } from "services";
 import { ApiConstant } from "const";
+import { useNavigation } from "@react-navigation/native";
+import { RouteName } from "const/path.const";
 
 const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
+  const navigation = useNavigation();
   const { caption: content, imageUrl: imageContentSrc, user, _id: id } = data;
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
@@ -37,9 +40,20 @@ const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
     }
   }, [id, authUser, onRefetchLikes]);
 
+  const onGoToProfile = useCallback(() => {
+    navigation.navigate(RouteName.PROFILE, {
+      userId: user._id,
+      name: user.name,
+    });
+  }, [navigation, user]);
+
   return (
     <View {...otherProps}>
-      <PostHeader avatarSrc={user.userImageUrl} name={user.name} />
+      <PostHeader
+        avatarSrc={user.userImageUrl}
+        name={user.name}
+        onPress={onGoToProfile}
+      />
       <PostContent
         content={content}
         imageContentSrc={imageContentSrc}
@@ -60,6 +74,7 @@ Post.propTypes = {
     caption: PropTypes.string,
     imageUrl: PropTypes.string,
     user: PropTypes.shape({
+      _id: PropTypes.string,
       userImageUrl: PropTypes.string,
       name: PropTypes.string,
     }),

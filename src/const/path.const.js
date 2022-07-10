@@ -1,3 +1,11 @@
+export const TabName = {
+  home: "homeStack",
+  explore: "exploreStack",
+  profile: "profileStack",
+  post: "postStack",
+  chat: "chatStack",
+};
+
 export const RouteName = {
   SIGN_IN: "SIGN_IN",
   SIGN_UP: "SIGN_UP",
@@ -10,4 +18,5 @@ export const RouteName = {
   RESET_PASSWORD: "RESET_PASSWORD",
   FOLLOWING: "FOLLOWING",
   FOLLOWERS: "FOLLOWERS",
+  EXPLORE_GALLERY: "EXPLORE_GALLERY",
 };

@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet, Text } from "react-native";
+import { useSelector } from "react-redux";
 
-const UserInfo = props => {
-  const name = "Lee";
-  const des = "Love flowers <3";
+const UserInfo = ({ userId, ...otherProps }) => {
+  const userInfo = useSelector(({ userRedux }) => userRedux.user);
 
   return (
-    <View {...props}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.des}>{des}</Text>
+    <View {...otherProps}>
+      <Text style={styles.name}>{userInfo.name}</Text>
+      <Text style={styles.des}>{userInfo.bio}</Text>
     </View>
   );
 };
 
 UserInfo.propTypes = {
-  imageUri: PropTypes.string,
+  userId: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

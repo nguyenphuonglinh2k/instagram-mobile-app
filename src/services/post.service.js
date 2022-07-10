@@ -29,8 +29,8 @@ export const getMyPosts = userId => {
   );
 };
 
-export const getMyLikes = userId => {
-  return Api.get(
+export const getMyLikes = async userId => {
+  return await Api.get(
     StringFormat(ApiConstant.GET_MY_LIKE, { userId }),
     axiosConfig,
   );

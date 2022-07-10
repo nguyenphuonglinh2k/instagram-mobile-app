@@ -7,6 +7,7 @@ import UserInfo from "./sn-profile/UserInfo";
 import FollowAndChatAction from "./sn-profile/FollowAndChatAction";
 import ProfileTabBar from "./sn-profile/ProfileTabBar";
 import Gallery from "./sn-profile/Gallery";
+import FollowUserItem from "./sn-profile/FollowUserItem";
 
 // Comment Screen
 import InputBox from "./sn-comment/InputBox";
@@ -48,4 +49,5 @@ export {
   RedirectActions,
   CommonModal,
   EmptyData,
+  FollowUserItem,
 };

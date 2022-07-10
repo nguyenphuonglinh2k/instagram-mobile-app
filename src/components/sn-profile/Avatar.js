@@ -1,14 +1,14 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { View, Image, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 const Avatar = props => {
-  const imageUri =
-    "https://res.cloudinary.com/coders-tokyo/image/upload/v1608429814/uf6dap9gxsb3gl7ewg40.jpg";
+  const userInfo = useSelector(({ userRedux }) => userRedux.user);
 
   return (
     <View {...props}>
-      <Image style={styles.image} source={{ uri: imageUri }} />
+      <Image style={styles.image} source={{ uri: userInfo.userImageUrl }} />
     </View>
   );
 };
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Avatar;
+export default memo(Avatar);

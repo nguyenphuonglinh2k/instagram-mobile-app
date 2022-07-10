@@ -1,3 +1,5 @@
+import DocumentPicker from "react-native-document-picker";
+
 export const snakeToCamelCase = str => {
   if (str.includes("_") || str.includes("-"))
     return str
@@ -36,4 +38,23 @@ export const toCamel = obj => {
     }
   }
   return newObj;
+};
+
+export const getUploadFormData = async () => {
+  const response = await DocumentPicker.pick({
+    type: [DocumentPicker.types.images],
+  });
+  const photo = {
+    uri: response[0].uri,
+    type: response[0].type,
+    name: response[0].name,
+  };
+  const bodyFormData = new FormData();
+
+  bodyFormData.append("file", photo);
+  bodyFormData.append("upload_preset", "instello");
+  bodyFormData.append("cloud_name", "coders.tokyo");
+  bodyFormData.append("folder", "instello");
+
+  return bodyFormData;
 };

@@ -3,20 +3,26 @@ import PropTypes from "prop-types";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
+import { shallowEqual, useSelector } from "react-redux";
 
 const ProfileStatistic = ({ totalPost, style = {}, ...otherProps }) => {
   const navigation = useNavigation();
+
+  const [followers, following] = useSelector(
+    ({ userRedux }) => [userRedux.followers, userRedux.following],
+    shallowEqual,
+  );
 
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
       <StatisticItem number={totalPost} label="Posts" />
       <StatisticItem
-        number={40}
+        number={followers.length}
         label="Followers"
         onPress={() => navigation.navigate(RouteName.FOLLOWERS)}
       />
       <StatisticItem
-        number={40}
+        number={following.length}
         label="Following"
         onPress={() => navigation.navigate(RouteName.FOLLOWING)}
       />
