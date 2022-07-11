@@ -26,9 +26,7 @@ const AvatarIcon = ({ isFocused }) => {
         borderWidth: isFocused ? 2 : 0,
       }}
       source={{
-        uri:
-          authUser.userImageUrl ||
-          "https://i.pinimg.com/736x/10/c9/c0/10c9c02224ae9c08ba781bae2a856675.jpg",
+        uri: authUser.userImageUrl,
       }}
     />
   );

@@ -7,28 +7,39 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { EmptyData } from "components";
 import { PostService } from "services/";
 import { ApiConstant } from "const/";
+import { useIsFocused } from "@react-navigation/core";
 
 const ExploreGallery = ({ data, style, ...otherProps }) => {
-  const [posts, setPosts] = useState([]);
+  const isFocused = useIsFocused();
 
-  const getPosts = useCallback(async () => {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const onGetPosts = useCallback(async () => {
+    setIsLoading(true);
     const response = await PostService.getPosts();
 
     if (response.status === ApiConstant.STT_OK) {
       setPosts(response.data);
     }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    if (isFocused) onGetPosts();
+  }, [onGetPosts, isFocused]);
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={onGetPosts} />
+      }
+    >
       {posts?.length ? (
         <View style={[styles.list, style]} {...otherProps}>
           {posts.map(({ imageUrl }, index) => (
@@ -68,7 +79,6 @@ const styles = StyleSheet.create({
     width: width,
     height: width,
     margin: 2,
-    borderRadius: 4,
   },
 });
 

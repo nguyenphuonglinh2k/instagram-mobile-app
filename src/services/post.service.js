@@ -1,12 +1,13 @@
 import Api from "./api";
 import axios from "axios";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import store from "reduxStore";
 import StringFormat from "string-format";
+import clientStorage from "utils/clientStorage";
 
 const axiosConfig = {
   headers: {
-    authorization: store.getState()?.authRedux?.token,
+    authorization: store.getState().authRedux.token,
   },
 };
 
@@ -30,11 +31,13 @@ export const getMyPosts = userId => {
 };
 
 export const getMyLikes = async userId => {
-  console.log(axiosConfig);
-  return await Api.get(
-    StringFormat(ApiConstant.GET_MY_LIKE, { userId }),
-    axiosConfig,
-  );
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.get(StringFormat(ApiConstant.GET_MY_LIKE, { userId }), {
+    headers: {
+      authorization: axiosConfig.headers.authorization || token,
+    },
+  });
 };
 
 export const getComments = postId =>

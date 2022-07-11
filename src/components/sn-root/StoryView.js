@@ -1,5 +1,13 @@
+import CirclePlusIcon from "icons/CirclePlusIcon";
 import React from "react";
-import { TouchableOpacity, ScrollView, Image, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  StyleSheet,
+  View,
+} from "react-native";
+import { useSelector } from "react-redux";
 
 const StoryView = () => {
   return (
@@ -9,12 +17,32 @@ const StoryView = () => {
       contentContainerStyle={styles.contentContainer}
       style={styles.divider}
     >
+      <CreateStoryAvatar />
+
       {MOCK_USERS.map(({ uri }, index) => (
         <TouchableOpacity key={index} activeOpacity={0.8}>
           <Image style={styles.avatar} source={{ uri }} />
         </TouchableOpacity>
       ))}
     </ScrollView>
+  );
+};
+
+const CreateStoryAvatar = () => {
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
+  return (
+    <TouchableOpacity activeOpacity={0.7} style={[styles.wrapper]}>
+      <Image
+        style={[styles.avatar, { borderWidth: 1, borderColor: "#3A466480" }]}
+        source={{
+          uri: authUser.userImageUrl,
+        }}
+      />
+      <View style={styles.icon}>
+        <CirclePlusIcon />
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -38,6 +66,15 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomWidth: 1,
     borderBottomColor: "rgba(196, 196, 196, 0.5)",
+  },
+  wrapper: {
+    position: "relative",
+  },
+  icon: {
+    position: "absolute",
+    right: 10,
+    bottom: -5,
+    zIndex: 1,
   },
 });
 

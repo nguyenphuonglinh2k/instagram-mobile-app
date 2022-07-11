@@ -14,6 +14,7 @@ import VideoIcon from "./VideoIcon";
 import SettingIcon from "./SettingIcon";
 import FaceIcon from "./FaceIcon";
 import CameraIcon from "./CameraIcon";
+import CirclePlusIcon from "./CirclePlusIcon";
 
 export {
   HomeIcon,
@@ -32,4 +33,5 @@ export {
   SettingIcon,
   FaceIcon,
   CameraIcon,
+  CirclePlusIcon,
 };
