@@ -1,11 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { MainLayout } from "layouts";
-import { ContainedButton, CommonTextInput } from "components";
+import { ContainedButton, CommonTextInput, LoadingSpinner } from "components";
 import { ImageSource } from "assets";
+import { useToast } from "react-native-toast-notifications";
+import { useCallback } from "react";
+import { UserService } from "services";
+import { useSelector } from "react-redux";
+import { ApiConstant } from "const/";
 
 const ResetPassword = ({ isBackScreen, ...otherProps }) => {
+  const toast = useToast();
+
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
+  const [oldPassword, onChangeOldPassword] = useState("");
+  const [newPassword, onChangeNewPassword] = useState("");
+  const [reEnterNewPassword, onChangeReEnterNewPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onResetData = useCallback(() => {
+    onChangeOldPassword("");
+    onChangeNewPassword("");
+    onChangeReEnterNewPassword("");
+  }, []);
+
+  const onConfirmChangePassword = useCallback(async () => {
+    if (!oldPassword || !newPassword || !reEnterNewPassword) {
+      toast.show("Please enter all field", {
+        type: "warning",
+      });
+      return;
+    } else if (newPassword !== reEnterNewPassword) {
+      toast.show("Password is not match", {
+        type: "warning",
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const response = await UserService.putPasswordChangeAction(authUser._id, {
+        oldPassword,
+        newPassword,
+        reEnterNewPassword,
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        toast.show("Reset password successfully", {
+          type: "success",
+        });
+        onResetData();
+      } else {
+        const errorMsg = response?.data?.error;
+        if (errorMsg) {
+          toast.show(errorMsg, { type: "danger" });
+        }
+      }
+    } catch (error) {
+      toast.show("Cannot reset password. Please try again!", {
+        type: "danger",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    oldPassword,
+    newPassword,
+    reEnterNewPassword,
+    authUser?._id,
+    toast,
+    onResetData,
+  ]);
+
+  useEffect(() => {
+    return () => onResetData();
+  }, [onResetData]);
+
   return (
     <MainLayout
       headerProps={{
@@ -28,18 +100,24 @@ const ResetPassword = ({ isBackScreen, ...otherProps }) => {
         )}
 
         <CommonTextInput
+          value={oldPassword}
+          onChangeText={onChangeOldPassword}
           label="Old password"
           secureTextEntry
           style={{ marginBottom: 10 }}
           labelProps={{ style: { marginTop: 20 } }}
         />
         <CommonTextInput
+          value={newPassword}
+          onChangeText={onChangeNewPassword}
           label="New password"
           secureTextEntry
           style={{ marginBottom: 10 }}
           labelProps={{ style: { marginTop: 20 } }}
         />
         <CommonTextInput
+          value={reEnterNewPassword}
+          onChangeText={onChangeReEnterNewPassword}
           label="Re-enter new password"
           secureTextEntry
           style={{ marginBottom: 10 }}
@@ -50,9 +128,12 @@ const ResetPassword = ({ isBackScreen, ...otherProps }) => {
           <ContainedButton
             label="Reset password"
             style={styles.gradientButton}
+            onPress={onConfirmChangePassword}
           />
         </View>
       </ScrollView>
+
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };

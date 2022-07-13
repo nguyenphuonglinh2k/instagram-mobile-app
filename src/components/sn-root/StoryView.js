@@ -21,8 +21,8 @@ const StoryView = () => {
   const following = useSelector(({ userRedux }) => userRedux.following);
 
   const onGetFollowing = useCallback(() => {
-    dispatch(UserActions.getFollowingRequest(authUser._id));
-  }, [authUser._id, dispatch]);
+    dispatch(UserActions.getFollowingRequest(authUser?._id));
+  }, [authUser?._id, dispatch]);
 
   useEffect(() => {
     if (isFocused) {
@@ -54,7 +54,7 @@ const StoryView = () => {
 };
 
 const CreateStoryAvatar = () => {
-  const authUser = useSelector(({ authRedux }) => authRedux.user);
+  const authUser = useSelector(({ authRedux }) => authRedux.user || {});
 
   return (
     <TouchableOpacity activeOpacity={0.7} style={[styles.wrapper]}>

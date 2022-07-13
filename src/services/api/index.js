@@ -87,7 +87,7 @@ const ApiContainer = class {
       // delay(1000);
       error.recall = true;
     } else {
-      throw error;
+      console.log("handleError", error);
     }
   }
 };

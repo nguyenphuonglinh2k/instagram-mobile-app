@@ -16,8 +16,10 @@ import clientStorage from "utils/clientStorage";
 import { RouteName } from "const/path.const";
 import AuthActions from "reduxStore/auth.redux";
 import { useDispatch } from "react-redux";
+import { useToast } from "react-native-toast-notifications";
 
 const SignIn = () => {
+  const toast = useToast();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -25,6 +27,7 @@ const SignIn = () => {
   const [password, onChangePassword] = useState("");
 
   const onLogin = async () => {
+    console.log(typeof password, password);
     try {
       const response = await AuthService.postSignIn({
         email,
@@ -42,6 +45,11 @@ const SignIn = () => {
         dispatch(
           AuthActions.authSuccess({ token: bearToken, user, isLoggedIn: true }),
         );
+      } else {
+        const errorMsg = response?.data?.error;
+        if (errorMsg) {
+          toast.show(errorMsg, { type: "danger" });
+        }
       }
     } catch (error) {
       console.error(error);

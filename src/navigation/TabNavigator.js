@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 
 // eslint-disable-next-line react/prop-types
 const AvatarIcon = ({ isFocused }) => {
-  const authUser = useSelector(({ authRedux }) => authRedux.user);
+  const authUser = useSelector(({ authRedux }) => authRedux.user || {});
 
   return (
     <Image

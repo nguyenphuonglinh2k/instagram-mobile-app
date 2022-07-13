@@ -56,3 +56,17 @@ export const putFollowAction = async (userId, followUserId) => {
     },
   );
 };
+
+export const putPasswordChangeAction = async (userId, data) => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.put(
+    StringFormat(ApiConstant.PUT_PASSWORD_CHANGE_ACTION, { userId }),
+    data,
+    {
+      headers: {
+        authorization: axiosConfig.headers.authorization || token,
+      },
+    },
+  );
+};
