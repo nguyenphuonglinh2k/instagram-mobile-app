@@ -22,9 +22,9 @@ const Posts = () => {
 
     const response = await PostService.getMyLikes(userId);
 
-    if (response.status === ApiConstant.STT_OK) {
+    if (response?.status === ApiConstant.STT_OK) {
       const responseData = response.data;
-      setLikes(responseData);
+      Boolean(responseData) && setLikes(responseData);
     }
   }, [authUser]);
 
@@ -32,8 +32,8 @@ const Posts = () => {
     setIsLoading(true);
     const response = await PostService.getPosts();
 
-    if (response.status === ApiConstant.STT_OK) {
-      setPosts(response.data);
+    if (response?.status === ApiConstant.STT_OK) {
+      Boolean(response?.data) && setPosts(response.data);
     }
     setIsLoading(false);
   }, []);

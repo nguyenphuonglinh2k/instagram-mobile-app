@@ -60,7 +60,7 @@ const App = () => {
     <SafeAreaProvider>
       <ToastProvider
         swipeEnabled
-        duration={3000}
+        duration={2000}
         placement="top"
         animationType="slide-in"
       >

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeIcon, SearchIcon, RoundPlusIcon, MessageIcon } from "icons";
@@ -11,6 +11,7 @@ import {
 } from "./StackNavigator";
 import { PathConstant } from "const";
 import { useSelector } from "react-redux";
+import { navigationRef } from "navigation/RootNavigation";
 
 // eslint-disable-next-line react/prop-types
 const AvatarIcon = ({ isFocused }) => {
@@ -35,6 +36,13 @@ const AvatarIcon = ({ isFocused }) => {
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  useEffect(() => {
+    navigationRef?.current?.reset({
+      index: 0,
+      routes: [{ name: PathConstant.TabName.home }],
+    });
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -45,6 +53,7 @@ export default function TabNavigator() {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
       }}
+      initialRouteName={PathConstant.TabName.home}
     >
       <Tab.Screen
         name={PathConstant.TabName.home}

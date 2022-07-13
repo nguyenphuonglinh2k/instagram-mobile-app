@@ -27,7 +27,6 @@ const SignIn = () => {
   const [password, onChangePassword] = useState("");
 
   const onLogin = async () => {
-    console.log(typeof password, password);
     try {
       const response = await AuthService.postSignIn({
         email,

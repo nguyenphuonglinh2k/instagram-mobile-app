@@ -9,11 +9,14 @@ import { UserService } from "services";
 import { ApiConstant } from "const";
 import { LoadingSpinner } from "components";
 import UserActions from "reduxStore/user.redux";
+import AuthActions from "reduxStore/auth.redux";
+import { useToast } from "react-native-toast-notifications";
 
 const UserInfoChange = forwardRef((props, ref) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const toast = useToast();
 
   const userInfo = useSelector(({ userRedux }) => userRedux.user);
 
@@ -44,12 +47,23 @@ const UserInfoChange = forwardRef((props, ref) => {
             },
           }),
         );
+        dispatch(
+          AuthActions.authSuccess({
+            user: {
+              ...userInfo,
+              name,
+              bio,
+              userImageUrl: imageSrc,
+            },
+          }),
+        );
+        toast.show("Update info successfully", { type: "success" });
         navigation.goBack();
       }
 
       setIsLoading(false);
     },
-    [userInfo, name, bio, dispatch, navigation],
+    [name, bio, userInfo, dispatch, toast, navigation],
   );
 
   useEffect(() => {
