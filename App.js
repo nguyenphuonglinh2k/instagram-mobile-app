@@ -26,6 +26,7 @@ const App = () => {
   const [splash, setSplash] = useState(true);
 
   const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
+
   const isFetching = useSelector(
     ({ appRedux, userRedux }) => appRedux.isFetching || userRedux.isFetching,
   );

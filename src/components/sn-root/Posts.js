@@ -4,8 +4,12 @@ import Post from "./Post";
 import { PostService } from "services";
 import { ApiConstant } from "const";
 import { useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/core";
+import { EmptyData } from "components";
 
 const Posts = () => {
+  const isFocuses = useIsFocused();
+
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,14 +39,14 @@ const Posts = () => {
   }, []);
 
   useEffect(() => {
-    onGetLikeAction();
-  }, [onGetLikeAction]);
+    if (isFocuses) onGetLikeAction();
+  }, [onGetLikeAction, isFocuses]);
 
   useEffect(() => {
-    onGetPosts();
-  }, [onGetPosts]);
+    if (isFocuses) onGetPosts();
+  }, [onGetPosts, isFocuses]);
 
-  return (
+  return posts?.length ? (
     <FlatList
       data={posts}
       renderItem={({ item, index }) => (
@@ -59,6 +63,8 @@ const Posts = () => {
         <RefreshControl refreshing={isLoading} onRefresh={onGetPosts} />
       }
     />
+  ) : (
+    <EmptyData title="No posts here" />
   );
 };
 

@@ -14,7 +14,7 @@ import { PROFILE_TAB_VALUES } from "components/sn-profile/ProfileTabBar";
 import { SettingIcon } from "icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { RouteName } from "const/path.const";
-import { PostService } from "services/";
+import { PostService } from "services";
 import { useDispatch, useSelector } from "react-redux";
 import { ApiConstant } from "const/";
 import UserActions from "reduxStore/user.redux";

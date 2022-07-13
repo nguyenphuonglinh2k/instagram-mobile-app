@@ -23,11 +23,14 @@ export const postCloudinaryUpload = async data => {
 
 export const getPosts = () => Api.get(ApiConstant.GET_POSTS);
 
-export const getMyPosts = userId => {
-  return Api.get(
-    StringFormat(ApiConstant.GET_MY_POSTS, { userId }),
-    axiosConfig,
-  );
+export const getMyPosts = async userId => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.get(StringFormat(ApiConstant.GET_MY_POSTS, { userId }), {
+    headers: {
+      authorization: axiosConfig.headers.authorization || token,
+    },
+  });
 };
 
 export const getMyLikes = async userId => {
@@ -43,23 +46,40 @@ export const getMyLikes = async userId => {
 export const getComments = postId =>
   Api.get(StringFormat(ApiConstant.GET_COMMENTS, { postId }), axiosConfig);
 
-export const postActionLike = (data, userId) =>
-  Api.post(
+export const postActionLike = async (data, userId) => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.post(
     StringFormat(ApiConstant.POST_ACTION_LIKE, { userId }),
     data,
-    axiosConfig,
+    {
+      headers: {
+        authorization: axiosConfig.headers.authorization || token,
+      },
+    },
   );
+};
 
-export const postComment = (data, postId, userId) =>
-  Api.post(
+export const postComment = async (data, postId, userId) => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.post(
     StringFormat(ApiConstant.POST_COMMENT, { userId, postId }),
     data,
-    axiosConfig,
+    {
+      headers: {
+        authorization: axiosConfig.headers.authorization || token,
+      },
+    },
   );
+};
 
-export const postMyPost = (data, userId) =>
-  Api.post(
-    StringFormat(ApiConstant.POST_MY_POST, { userId }),
-    data,
-    axiosConfig,
-  );
+export const postMyPost = async (data, userId) => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.post(StringFormat(ApiConstant.POST_MY_POST, { userId }), data, {
+    headers: {
+      authorization: axiosConfig.headers.authorization || token,
+    },
+  });
+};
