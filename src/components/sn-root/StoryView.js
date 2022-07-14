@@ -1,4 +1,5 @@
-import { useIsFocused } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+import { RouteName } from "const/path.const";
 import CirclePlusIcon from "icons/CirclePlusIcon";
 import React, { useEffect } from "react";
 import { useCallback } from "react";
@@ -16,6 +17,7 @@ import UserActions from "reduxStore/user.redux";
 const StoryView = () => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
   const following = useSelector(({ userRedux }) => userRedux.following);
@@ -23,6 +25,13 @@ const StoryView = () => {
   const onGetFollowing = useCallback(() => {
     dispatch(UserActions.getFollowingRequest(authUser?._id));
   }, [authUser?._id, dispatch]);
+
+  const onGoToProfile = useCallback(
+    params => {
+      navigation.navigate(RouteName.PROFILE, params);
+    },
+    [navigation],
+  );
 
   useEffect(() => {
     if (isFocused) {
@@ -39,11 +48,12 @@ const StoryView = () => {
     >
       <CreateStoryAvatar />
 
-      {following.map(({ userImageUrl, name }, index) => (
+      {following.map(({ userImageUrl, name, _id }, index) => (
         <TouchableOpacity
           key={index}
           activeOpacity={0.7}
           style={{ alignItems: "center" }}
+          onPress={() => onGoToProfile({ userId: _id, name })}
         >
           <Image style={styles.avatar} source={{ uri: userImageUrl }} />
           <Text style={styles.name}>{name}</Text>

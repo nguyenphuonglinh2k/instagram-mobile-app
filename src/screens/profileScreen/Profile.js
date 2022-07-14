@@ -46,8 +46,8 @@ const Profile = () => {
   const onGetMyPosts = useCallback(async () => {
     const response = await PostService.getMyPosts(userId);
 
-    if (response.status === ApiConstant.STT_OK) {
-      setPosts(response.data);
+    if (response?.status === ApiConstant.STT_OK) {
+      Boolean(response?.data) && setPosts(response.data);
     }
   }, [userId]);
 
@@ -99,7 +99,7 @@ const Profile = () => {
         </View>
 
         <UserInfo userId={userId} style={{ marginTop: 10, marginBottom: 20 }} />
-        {Boolean(userIdParams) && (
+        {Boolean(isBackScreen) && (
           <FollowAndChatAction
             userId={userId}
             onRefetchData={onGetFollowersAndFollowing}

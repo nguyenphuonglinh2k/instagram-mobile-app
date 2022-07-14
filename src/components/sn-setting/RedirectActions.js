@@ -5,6 +5,7 @@ import { RouteName } from "const/path.const";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
+import UserActions from "reduxStore/user.redux";
 import clientStorage from "utils/clientStorage";
 import { AppConstant } from "const/";
 
@@ -19,6 +20,7 @@ const RedirectActions = props => {
         isLoggedIn: false,
       }),
     );
+    dispatch(UserActions.userReset());
   };
 
   return (

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { PostService } from "services";
 import { ApiConstant } from "const";
 import { useNavigation } from "@react-navigation/native";
-import { RouteName } from "const/path.const";
+import { RouteName, TabName } from "const/path.const";
 
 const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
   const navigation = useNavigation();
@@ -41,11 +41,17 @@ const Post = ({ data, likes, onRefetchLikes, ...otherProps }) => {
   }, [id, authUser, onRefetchLikes]);
 
   const onGoToProfile = useCallback(() => {
-    navigation.navigate(RouteName.PROFILE, {
-      userId: user._id,
-      name: user.name,
-    });
-  }, [navigation, user]);
+    const params = { userId: user._id, name: user.name };
+
+    if (user._id === authUser._id) {
+      navigation.navigate(TabName.profile, {
+        screen: RouteName.PROFILE,
+        params,
+      });
+    } else {
+      navigation.navigate(RouteName.PROFILE, params);
+    }
+  }, [authUser?._id, navigation, user?._id, user?.name]);
 
   return (
     <View {...otherProps}>

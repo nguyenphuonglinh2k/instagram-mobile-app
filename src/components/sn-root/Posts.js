@@ -23,8 +23,7 @@ const Posts = () => {
     const response = await PostService.getMyLikes(userId);
 
     if (response?.status === ApiConstant.STT_OK) {
-      const responseData = response.data;
-      Boolean(responseData) && setLikes(responseData);
+      Boolean(response?.data) && setLikes(response.data);
     }
   }, [authUser]);
 

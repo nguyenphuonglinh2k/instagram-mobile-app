@@ -10,24 +10,30 @@ const axiosConfig = {
   },
 };
 
-export const getFollowers = async userId => {
+export const getFollowers = async (userId, authUserId) => {
   const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
 
-  return Api.get(StringFormat(ApiConstant.GET_FOLLOWERS, { userId }), {
-    headers: {
-      authorization: axiosConfig.headers.authorization || token,
+  return Api.get(
+    StringFormat(ApiConstant.GET_FOLLOWERS, { userId, authUserId }),
+    {
+      headers: {
+        authorization: axiosConfig.headers.authorization || token,
+      },
     },
-  });
+  );
 };
 
-export const getFollowing = async userId => {
+export const getFollowing = async (userId, authUserId) => {
   const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
 
-  return Api.get(StringFormat(ApiConstant.GET_FOLLOWING, { userId }), {
-    headers: {
-      authorization: axiosConfig.headers.authorization || token,
+  return Api.get(
+    StringFormat(ApiConstant.GET_FOLLOWING, { userId, authUserId }),
+    {
+      headers: {
+        authorization: axiosConfig.headers.authorization || token,
+      },
     },
-  });
+  );
 };
 
 export const getUserInfo = userId =>
