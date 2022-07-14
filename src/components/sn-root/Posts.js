@@ -29,10 +29,14 @@ const Posts = () => {
 
   const onGetPosts = useCallback(async () => {
     setIsLoading(true);
-    const response = await PostService.getPosts();
+    try {
+      const response = await PostService.getPosts();
 
-    if (response?.status === ApiConstant.STT_OK) {
-      Boolean(response?.data) && setPosts(response.data);
+      if (response?.status === ApiConstant.STT_OK) {
+        Boolean(response?.data) && setPosts(response.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
     setIsLoading(false);
   }, []);
