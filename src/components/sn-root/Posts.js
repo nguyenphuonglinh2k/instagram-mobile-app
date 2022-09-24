@@ -28,8 +28,8 @@ const Posts = () => {
   }, [authUser]);
 
   const onGetPosts = useCallback(async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const response = await PostService.getPosts();
 
       if (response?.status === ApiConstant.STT_OK) {
@@ -37,8 +37,9 @@ const Posts = () => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
   useEffect(() => {
