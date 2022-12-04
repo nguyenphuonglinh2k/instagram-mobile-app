@@ -6,18 +6,8 @@ const SearchIcon = ({ height, width, color, isFocused, ...otherProps }) => {
   return (
     <Svg height={height} width={width} {...otherProps}>
       <Path
-        d="M9.58335 17.0889C13.9556 17.0889 17.5 13.5445 17.5 9.17228C17.5 4.80003 13.9556 1.25562 9.58335 1.25562C5.2111 1.25562 1.66669 4.80003 1.66669 9.17228C1.66669 13.5445 5.2111 17.0889 9.58335 17.0889Z"
-        stroke={color}
-        strokeWidth={isFocused ? "2.5" : "1.5"}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M18.3333 17.9223L16.6666 16.2556"
-        stroke={color}
-        strokeWidth={isFocused ? "2.5" : "1.5"}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M20.5605 18.4395L16.7528 14.6318C17.5395 13.446 18 12.0262 18 10.5C18 6.3645 14.6355 3 10.5 3C6.3645 3 3 6.3645 3 10.5C3 14.6355 6.3645 18 10.5 18C12.0262 18 13.446 17.5395 14.6318 16.7528L18.4395 20.5605C19.0245 21.1462 19.9755 21.1462 20.5605 20.5605C21.1462 19.9748 21.1462 19.0252 20.5605 18.4395ZM5.25 10.5C5.25 7.605 7.605 5.25 10.5 5.25C13.395 5.25 15.75 7.605 15.75 10.5C15.75 13.395 13.395 15.75 10.5 15.75C7.605 15.75 5.25 13.395 5.25 10.5Z"
+        fill={color}
       />
     </Svg>
   );
@@ -31,9 +21,9 @@ SearchIcon.propTypes = {
 };
 
 SearchIcon.defaultProps = {
-  color: "#292D32",
-  width: 20,
-  height: 20,
+  color: "#B9B9B9",
+  width: 24,
+  height: 24,
 };
 
 export default SearchIcon;

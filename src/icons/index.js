@@ -15,6 +15,7 @@ import SettingIcon from "./SettingIcon";
 import FaceIcon from "./FaceIcon";
 import CameraIcon from "./CameraIcon";
 import CirclePlusIcon from "./CirclePlusIcon";
+import EmailIcon from "./EmailIcon";
 
 export {
   HomeIcon,
@@ -34,4 +35,5 @@ export {
   FaceIcon,
   CameraIcon,
   CirclePlusIcon,
+  EmailIcon,
 };
