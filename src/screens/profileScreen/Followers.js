@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { StyleSheet, FlatList } from "react-native";
 import { MainLayout } from "layouts";
-import { FollowUserItem } from "components";
+import { FollowUserItem } from "components/sn-profile";
 import { useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/core";
 

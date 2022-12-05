@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { MainLayout } from "layouts";
+import { EmptyData } from "components";
 import {
   Avatar,
-  ProfileStatistic,
   UserInfo,
   FollowAndChatAction,
   ProfileTabBar,
   Gallery,
-  EmptyData,
-} from "components";
+  ProfileStatistic,
+} from "components/sn-profile";
 import { PROFILE_TAB_VALUES } from "components/sn-profile/ProfileTabBar";
 import { SettingIcon } from "icons";
 import { useNavigation, useRoute } from "@react-navigation/native";

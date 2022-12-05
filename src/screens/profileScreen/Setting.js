@@ -1,6 +1,10 @@
 import { MainLayout } from "layouts";
 import React, { useRef, useState } from "react";
-import { AvatarChange, UserInfoChange, RedirectActions } from "components";
+import {
+  AvatarChange,
+  UserInfoChange,
+  RedirectActions,
+} from "components/sn-setting";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { CheckIcon } from "icons";
 

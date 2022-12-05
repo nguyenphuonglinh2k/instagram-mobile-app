@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 import { MainLayout } from "layouts";
 import { useSelector } from "react-redux";
-import { FollowUserItem } from "components";
+import { FollowUserItem } from "components/sn-profile";
 import { useRoute } from "@react-navigation/core";
 
 const Following = () => {

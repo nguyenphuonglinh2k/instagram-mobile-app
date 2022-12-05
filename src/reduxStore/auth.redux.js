@@ -2,6 +2,8 @@ import { createReducer, createActions } from "reduxsauce";
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
+  postLoginRequest: ["data"],
+
   authSuccess: ["data"],
   authFailure: ["data"],
   authReset: [],
@@ -46,6 +48,8 @@ export const reset = () => INITIAL_STATE;
 
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
+  [Types.POST_LOGIN_REQUEST]: request,
+
   [Types.AUTH_SUCCESS]: success,
   [Types.AUTH_FAILURE]: failure,
   [Types.AUTH_RESET]: reset,

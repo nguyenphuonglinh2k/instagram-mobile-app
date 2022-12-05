@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { ContainedButton } from "components";
+import ContainedButton from "./ContainedButton";
 
 const OutlinedButton = ({
   label,

@@ -9,50 +9,25 @@ import {
 } from "react-native";
 import { ImageSource } from "assets";
 import { useNavigation } from "@react-navigation/native";
-import { ApiConstant, AppConstant } from "const";
 import { ContainedButton, TextButton, CommonTextInput } from "components";
-import { AuthService } from "services";
-import clientStorage from "utils/clientStorage";
 import { RouteName } from "const/path.const";
-import AuthActions from "reduxStore/auth.redux";
+import AuthActions from "../../reduxStore/auth.redux";
 import { useDispatch } from "react-redux";
-import { useToast } from "react-native-toast-notifications";
 
 const SignIn = () => {
-  const toast = useToast();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [email, onChangeEmail] = useState("");
-  const [password, onChangePassword] = useState("");
+  const [email, onChangeEmail] = useState("andy@gmail.com");
+  const [password, onChangePassword] = useState("123456");
 
-  const onLogin = async () => {
-    try {
-      const response = await AuthService.postSignIn({
+  const onLogin = () => {
+    dispatch(
+      AuthActions.postLoginRequest({
         email,
         password,
-      });
-
-      if (response.status === ApiConstant.STT_OK) {
-        const { token, user } = response.data;
-
-        const bearToken = `Bearer ${token}`;
-
-        clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
-        clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));
-
-        dispatch(
-          AuthActions.authSuccess({ token: bearToken, user, isLoggedIn: true }),
-        );
-      } else {
-        const errorMsg = response?.data?.error;
-        if (errorMsg) {
-          toast.show(errorMsg, { type: "danger" });
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+      }),
+    );
   };
 
   return (

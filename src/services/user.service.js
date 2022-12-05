@@ -1,12 +1,12 @@
 import Api from "./api";
 import { ApiConstant, AppConstant } from "const";
-import store from "reduxStore";
+// import store from "reduxStore";
 import StringFormat from "string-format";
 import clientStorage from "utils/clientStorage";
 
 const axiosConfig = {
   headers: {
-    authorization: store.getState().authRedux.token,
+    authorization: null,
   },
 };
 

@@ -28,25 +28,24 @@ const App = () => {
   const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
 
   const isFetching = useSelector(
-    ({ appRedux, userRedux }) => appRedux.isFetching || userRedux.isFetching,
+    ({ appRedux, userRedux, authRedux }) =>
+      appRedux.isFetching || userRedux.isFetching || authRedux.isFetching,
   );
 
-  const getToken = useCallback(async () => {
-    const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
-    const user = await clientStorage.get(AppConstant.USER_KEY);
+  // const getToken = useCallback(async () => {
+  //   const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+  //   const user = await clientStorage.get(AppConstant.USER_KEY);
 
-    dispatch(
-      AuthActions.authSuccess({
-        user: JSON.parse(user),
-        token,
-        isLoggedIn: Boolean(token),
-      }),
-    );
-  }, [dispatch]);
+  //   dispatch(
+  //     AuthActions.authSuccess({
+  //       user: JSON.parse(user),
+  //       token,
+  //       isLoggedIn: Boolean(token),
+  //     }),
+  //   );
+  // }, [dispatch]);
 
   useEffect(() => {
-    getToken();
-
     const splashTimeout = setTimeout(() => {
       setSplash(false);
     }, 700);
@@ -54,7 +53,7 @@ const App = () => {
     return () => {
       clearTimeout(splashTimeout);
     };
-  }, [getToken]);
+  }, []);
 
   return (
     <SafeAreaProvider>

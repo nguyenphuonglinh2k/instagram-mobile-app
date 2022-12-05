@@ -1,27 +1,36 @@
-import { call, put } from "redux-saga/effects";
+import { call, put, all } from "redux-saga/effects";
 import { ApiConstant, AppConstant } from "const";
 import { AuthService } from "services";
 import AuthActions from "reduxStore/auth.redux";
-import { toCamel } from "utils/index";
+import UserActions from "reduxStore/user.redux";
 import clientStorage from "utils/clientStorage";
 
 export function* postLoginRequest(action) {
   try {
     const response = yield call(AuthService.postSignIn, action.data);
 
-    console.log(response);
-
     if (response.status === ApiConstant.STT_OK) {
-      const { accessToken } = toCamel(response.data);
+      const { token, user } = response.data;
 
-      const bearToken = `Bearer ${accessToken}`;
+      const bearToken = `Bearer ${token}`;
+
       clientStorage.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
+      clientStorage.set(AppConstant.USER_KEY, JSON.stringify(user));
 
-      yield put(
-        AuthActions.authSuccess({
-          token: bearToken,
-        }),
-      );
+      yield all([
+        put(
+          AuthActions.authSuccess({
+            token: bearToken,
+            isLoggedIn: true,
+            user,
+          }),
+        ),
+        put(
+          UserActions.userSuccess({
+            user,
+          }),
+        ),
+      ]);
     } else {
       yield put(AuthActions.authFailure(response.data));
     }
