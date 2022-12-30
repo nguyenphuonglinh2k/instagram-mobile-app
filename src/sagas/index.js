@@ -1,6 +1,7 @@
 /**
  * Saga index: connects action type and saga
  */
+// import createSagaMiddleware from "redux-saga";
 
 import { all, takeLatest } from "redux-saga/effects";
 
@@ -28,3 +29,9 @@ export default function* root() {
     takeLatest(UserTypes.GET_USER_INFO_REQUEST, getUserInfoRequest),
   ]);
 }
+
+/* ------------- Saga Middleware ------------- */
+// const sagaMiddleware = createSagaMiddleware();
+
+// // kick off root saga
+// sagaMiddleware.run(root);

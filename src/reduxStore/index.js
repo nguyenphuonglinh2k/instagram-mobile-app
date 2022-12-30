@@ -31,7 +31,7 @@ const sagaMiddleware = createSagaMiddleware();
 // Create store
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-// kick off root saga
+// // kick off root saga
 sagaMiddleware.run(rootSaga);
 
 export default store;

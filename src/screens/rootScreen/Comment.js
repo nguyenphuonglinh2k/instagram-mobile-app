@@ -17,7 +17,7 @@ const Comment = () => {
     try {
       const response = await PostService.getComments(postId);
 
-      if (response.status === ApiConstant.STT_OK) {
+      if (response?.status === ApiConstant.STT_OK) {
         const responseData = response.data;
         setComments(responseData);
       }

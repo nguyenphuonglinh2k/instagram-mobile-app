@@ -7,7 +7,7 @@ import clientStorage from "utils/clientStorage";
 
 const axiosConfig = {
   headers: {
-    authorization: null, // store.getState()?.authRedux?.token
+    authorization: null, //store.getState()?.authRedux?.token
   },
 };
 
@@ -43,8 +43,15 @@ export const getMyLikes = async userId => {
   });
 };
 
-export const getComments = postId =>
-  Api.get(StringFormat(ApiConstant.GET_COMMENTS, { postId }), axiosConfig);
+export const getComments = async postId => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.get(StringFormat(ApiConstant.GET_COMMENTS, { postId }), {
+    headers: {
+      authorization: axiosConfig.headers.authorization || token,
+    },
+  });
+};
 
 export const postActionLike = async (data, userId) => {
   const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
