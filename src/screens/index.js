@@ -22,6 +22,9 @@ import Followers from "./profileScreen/Followers";
 // Explore screen
 import ExploreGallery from "./exploreScreen/ExploreGallery";
 
+// Chat screen
+import FriendSuggestion from "./chatScreen/FriendSuggestion";
+
 export {
   SplashScreen,
   Timeline,
@@ -36,4 +39,5 @@ export {
   Following,
   Followers,
   ExploreGallery,
+  FriendSuggestion,
 };

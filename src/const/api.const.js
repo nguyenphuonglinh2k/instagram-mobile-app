@@ -38,6 +38,7 @@ export const POST_COMMENT = "/post/{postId}/comment/{userId}";
 export const GET_FOLLOWERS = "/users/{userId}/followers";
 export const GET_FOLLOWING = "/users/{userId}/following";
 export const GET_USER_INFO = "/users/{userId}";
+export const GET_FRIEND_SUGGESTION = "/users/{userId}/friend-suggestion";
 export const PUT_USER_INFO = "/users/{userId}/profile";
 export const PUT_FOLLOW_ACTION = "/users/{userId}/follow/{followUserId}";
 export const PUT_PASSWORD_CHANGE_ACTION = "/users/{userId}/password";

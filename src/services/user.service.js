@@ -36,6 +36,16 @@ export const getFollowing = async (userId, authUserId) => {
   );
 };
 
+export const getFriendSuggestion = async userId => {
+  const token = await clientStorage.get(AppConstant.AUTH_TOKEN_KEY);
+
+  return Api.get(StringFormat(ApiConstant.GET_FRIEND_SUGGESTION, { userId }), {
+    headers: {
+      authorization: axiosConfig.headers.authorization || token,
+    },
+  });
+};
+
 export const getUserInfo = userId =>
   Api.get(StringFormat(ApiConstant.GET_USER_INFO, { userId }));
 

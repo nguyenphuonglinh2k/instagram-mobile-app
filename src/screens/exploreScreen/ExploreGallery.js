@@ -37,7 +37,7 @@ const ExploreGallery = ({ data, style, ...otherProps }) => {
   }, [onGetPosts, isFocused]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <SearchInput />
       <ScrollView
         refreshControl={
