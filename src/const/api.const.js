@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.43.196:5000/api";
+export const BASE_URL = "http://192.168.90.107:5000/api";
 
 export const HEADER_DEFAULT = {
   Accept: "application/json",
@@ -23,6 +23,7 @@ export const STT_INTERNAL_SERVER = 500;
 // Auth
 export const POST_SIGN_IN = "/auth/login";
 export const POST_SIGN_UP = "/auth/signup";
+export const POST_CONFIRM_OTP = "/auth/confirmOtp";
 
 // Post
 export const GET_POSTS = "/posts";

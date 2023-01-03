@@ -3,6 +3,7 @@ import { createReducer, createActions } from "reduxsauce";
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
   postLoginRequest: ["data"],
+  postConfirmOtpRequest: ["data"],
 
   authSuccess: ["data"],
   authFailure: ["data"],
@@ -19,6 +20,7 @@ export const INITIAL_STATE = {
   status: null,
   user: {},
   token: null,
+  createdOtpTime: null,
   isLoggedIn: false,
 };
 
@@ -49,6 +51,7 @@ export const reset = () => INITIAL_STATE;
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   [Types.POST_LOGIN_REQUEST]: request,
+  [Types.POST_CONFIRM_OTP_REQUEST]: request,
 
   [Types.AUTH_SUCCESS]: success,
   [Types.AUTH_FAILURE]: failure,

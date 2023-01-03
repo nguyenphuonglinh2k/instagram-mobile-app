@@ -29,7 +29,8 @@
       "icons/*": ["icons/*"],
       "reduxStore/*": ["reduxStore/*"],
       "sagas/*": ["sagas/*"],
-      "services/*": ["services/*"]
+      "services/*": ["services/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["src/**/*.js", "src/**/*.jsx", "App.jsx"],

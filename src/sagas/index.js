@@ -15,13 +15,14 @@ import {
   getFollowingRequest,
   getUserInfoRequest,
 } from "./user.saga";
-import { postLoginRequest } from "./auth.saga";
+import { postLoginRequest, postConfirmOtpRequest } from "./auth.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
   yield all([
     // Auth
     takeLatest(AuthTypes.POST_LOGIN_REQUEST, postLoginRequest),
+    takeLatest(AuthTypes.POST_CONFIRM_OTP_REQUEST, postConfirmOtpRequest),
 
     // User
     takeLatest(UserTypes.GET_FOLLOWERS_REQUEST, getFollowersRequest),

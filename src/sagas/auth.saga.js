@@ -10,7 +10,7 @@ export function* postLoginRequest(action) {
     const response = yield call(AuthService.postSignIn, action.data);
 
     if (response.status === ApiConstant.STT_OK) {
-      const { token, user } = response.data;
+      const { token, user, createdOtpTime } = response.data;
 
       const bearToken = `Bearer ${token}`;
 
@@ -21,8 +21,8 @@ export function* postLoginRequest(action) {
         put(
           AuthActions.authSuccess({
             token: bearToken,
-            isLoggedIn: true,
             user,
+            createdOtpTime,
           }),
         ),
         put(
@@ -31,6 +31,24 @@ export function* postLoginRequest(action) {
           }),
         ),
       ]);
+    } else {
+      yield put(AuthActions.authFailure(response.data));
+    }
+  } catch (error) {
+    yield put(AuthActions.authFailure(error));
+  }
+}
+
+export function* postConfirmOtpRequest(action) {
+  try {
+    const response = yield call(AuthService.confirmOtp, action.data);
+
+    if (response.status === ApiConstant.STT_OK) {
+      yield put(
+        AuthActions.authSuccess({
+          isLoggedIn: true,
+        }),
+      );
     } else {
       yield put(AuthActions.authFailure(response.data));
     }

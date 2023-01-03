@@ -18,6 +18,7 @@ const RedirectActions = props => {
     dispatch(
       AuthActions.authSuccess({
         isLoggedIn: false,
+        createdOtpTime: null,
       }),
     );
     dispatch(UserActions.userReset());

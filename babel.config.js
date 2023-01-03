@@ -28,6 +28,7 @@ module.exports = {
           "@sagas": "./sagas",
           "@services": "./services",
           "@layout": "./layout",
+          "@hooks": "./hooks",
         },
       },
     ],

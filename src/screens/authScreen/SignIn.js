@@ -12,14 +12,25 @@ import { useNavigation } from "@react-navigation/native";
 import { ContainedButton, TextButton, CommonTextInput } from "components";
 import { RouteName } from "const/path.const";
 import AuthActions from "../../reduxStore/auth.redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ConfirmOTPModal } from "components/sn-auth";
+import { AuthService } from "services/index";
+import { ApiConstant } from "const/index";
+import { useEffect } from "react";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const createdOtpTime = useSelector(
+    ({ authRedux }) => authRedux.createdOtpTime,
+  );
+
   const [email, onChangeEmail] = useState("andy@gmail.com");
   const [password, onChangePassword] = useState("123456");
+  const [otp, onChangeOtp] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState();
 
   const onLogin = () => {
     dispatch(
@@ -29,6 +40,31 @@ const SignIn = () => {
       }),
     );
   };
+
+  const onCloseModal = () => {
+    setIsVisible(false);
+  };
+
+  const onVerifyOTP = async () => {
+    try {
+      const response = await AuthService.confirmOtp({ otp, email });
+      if (response.status === ApiConstant.STT_OK) {
+        // Login successfully
+        dispatch(
+          AuthActions.authSuccess({
+            isLoggedIn: true,
+          }),
+        );
+        setError("");
+      }
+    } catch (err) {
+      setError("The OTP is incorrect or The time is expired");
+    }
+  };
+
+  useEffect(() => {
+    setIsVisible(Boolean(createdOtpTime));
+  }, [createdOtpTime]);
 
   return (
     <ScrollView style={{ flex: 1, padding: 16 }}>
@@ -76,6 +112,16 @@ const SignIn = () => {
           />
         </TouchableOpacity>
       </View>
+
+      <ConfirmOTPModal
+        visible={isVisible}
+        value={otp}
+        onChangeText={onChangeOtp}
+        onCancel={onCloseModal}
+        onVerify={onVerifyOTP}
+        error={error}
+        createdOtpTime={createdOtpTime}
+      />
     </ScrollView>
   );
 };

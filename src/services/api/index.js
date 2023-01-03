@@ -78,6 +78,7 @@ const ApiContainer = class {
       store.dispatch(
         AuthActions.authSuccess({
           isLoggedIn: false,
+          createdOtpTime: null,
         }),
       );
     } else if (
