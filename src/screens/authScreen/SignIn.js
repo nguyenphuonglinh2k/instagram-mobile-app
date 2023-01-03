@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -21,6 +21,7 @@ import { useEffect } from "react";
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const toastRef = useRef();
 
   const createdOtpTime = useSelector(
     ({ authRedux }) => authRedux.createdOtpTime,
@@ -41,8 +42,11 @@ const SignIn = () => {
     );
   };
 
-  const onCloseModal = () => {
-    setIsVisible(false);
+  const onResendOtp = () => {
+    onLogin();
+    toastRef.current.show("The OTP code has been sent to your email!", {
+      type: "warning",
+    });
   };
 
   const onVerifyOTP = async () => {
@@ -117,10 +121,12 @@ const SignIn = () => {
         visible={isVisible}
         value={otp}
         onChangeText={onChangeOtp}
-        onCancel={onCloseModal}
+        onCancel={() => setIsVisible(false)}
         onVerify={onVerifyOTP}
+        onResend={onResendOtp}
         error={error}
         createdOtpTime={createdOtpTime}
+        ref={toastRef}
       />
     </ScrollView>
   );

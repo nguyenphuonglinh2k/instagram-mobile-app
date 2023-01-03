@@ -1,4 +1,10 @@
-import React, { memo, useEffect } from "react";
+import React, {
+  memo,
+  useEffect,
+  useState,
+  forwardRef,
+  useCallback,
+} from "react";
 import PropTypes from "prop-types";
 import {
   CommonTextInput,
@@ -8,86 +14,117 @@ import {
 } from "components";
 import { Modal, StyleSheet, Text, View } from "react-native";
 import { AppConstant } from "const";
-import { useState } from "react";
+import Toast from "react-native-toast-notifications";
 
-const ConfirmOTPModal = ({
-  value,
-  error,
-  onChangeText,
-  onCancel,
-  onVerify,
-  createdOtpTime,
-  ...otherProps
-}) => {
-  const [seconds, setSeconds] = useState(60);
+const ConfirmOTPModal = forwardRef(
+  (
+    {
+      value,
+      error,
+      onChangeText,
+      onCancel,
+      onVerify,
+      onResend,
+      createdOtpTime,
+      ...otherProps
+    },
+    ref,
+  ) => {
+    const [seconds, setSeconds] = useState(
+      AppConstant.EXPIRED_TIME_OTP_IN_SECOND,
+    );
+    const [targetTime, setTargetTime] = useState(0);
 
-  useEffect(() => {
-    if (!createdOtpTime) return;
-
-    const targetTime =
-      new Date(createdOtpTime).getTime() +
-      AppConstant.EXPIRED_TIME_OTP_IN_SECOND * 1000;
-
-    const interval = setInterval(() => {
+    const onChangeSeconds = useCallback(() => {
       const remainTime = targetTime - new Date().getTime();
       const remainSeconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
       setSeconds(remainSeconds);
-    }, 1000);
+    }, [targetTime]);
 
-    return () => clearInterval(interval);
-  }, [setSeconds, createdOtpTime]);
+    useEffect(() => {
+      setTargetTime(
+        new Date(createdOtpTime).getTime() +
+          AppConstant.EXPIRED_TIME_OTP_IN_SECOND * 1000 -
+          2000, // faster than 2s ?
+      );
+    }, [createdOtpTime]);
 
-  return (
-    <Modal animationType="slide" transparent={true} {...otherProps}>
-      <View style={styles.centeredView}>
-        <View style={styles.wrapper}>
-          <Text style={styles.title}>OTP Verification</Text>
-          <Text style={{ marginBottom: 12, marginTop: 4 }}>
-            We are sending you an OTP code to your email.
-          </Text>
+    useEffect(() => {
+      if (!createdOtpTime) {
+        setSeconds(AppConstant.EXPIRED_TIME_OTP_IN_SECOND);
+        return;
+      }
 
-          {error && (
-            <View style={styles.alertWrapper}>
-              <Text style={styles.alertText}>{error}</Text>
+      onChangeSeconds();
+
+      const interval = setInterval(() => {
+        onChangeSeconds();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }, [setSeconds, createdOtpTime, targetTime, onChangeSeconds]);
+
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        style={{ zIndex: 1 }}
+        {...otherProps}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.wrapper}>
+            <Text style={styles.title}>OTP Verification</Text>
+            <Text style={{ marginBottom: 12, marginTop: 4 }}>
+              We are sending you an OTP code to your email.
+            </Text>
+
+            {error && (
+              <View style={styles.alertWrapper}>
+                <Text style={styles.alertText}>{error}</Text>
+              </View>
+            )}
+
+            <CommonTextInput
+              label="OTP Code"
+              value={value}
+              onChangeText={onChangeText}
+              placeholder="Please enter your code here"
+            />
+
+            <Text style={styles.otpNotification}>
+              The OTP will expire after {seconds >= 0 ? seconds : 0}s
+            </Text>
+
+            <TextButton
+              label="Resend OTP"
+              style={{ marginTop: 20, marginBottom: 12 }}
+              labelProps={{ style: styles.textButtonLabel }}
+              onPress={onResend}
+            />
+
+            <View style={styles.actions}>
+              <GreyButton
+                label="Cancel"
+                style={{ flex: 1, marginRight: 4 }}
+                onPress={onCancel}
+              />
+              <ContainedButton
+                label="Verify"
+                style={{ flex: 1, marginLeft: 4 }}
+                onPress={onVerify}
+                disabled={value?.length !== AppConstant.OTP_LENGTH}
+              />
             </View>
-          )}
-
-          <CommonTextInput
-            label="OTP Code"
-            value={value}
-            onChangeText={onChangeText}
-            placeholder="Please enter your code here"
-          />
-
-          <Text style={styles.otpNotification}>
-            The OTP will expire after {seconds >= 0 ? seconds : 0}s
-          </Text>
-
-          <TextButton
-            label="Resend OTP"
-            style={{ marginTop: 20, marginBottom: 12 }}
-            labelProps={{ style: styles.textButtonLabel }}
-          />
-
-          <View style={styles.actions}>
-            <GreyButton
-              label="Cancel"
-              style={{ flex: 1, marginRight: 4 }}
-              onPress={onCancel}
-            />
-            <ContainedButton
-              label="Verify"
-              style={{ flex: 1, marginLeft: 4 }}
-              onPress={onVerify}
-              disabled={value?.length !== AppConstant.OTP_LENGTH}
-            />
           </View>
         </View>
-      </View>
-    </Modal>
-  );
-};
+        <Toast ref={ref} duration={2000} placement="top" />
+      </Modal>
+    );
+  },
+);
+
+ConfirmOTPModal.displayName = "ConfirmOTPModal";
 
 ConfirmOTPModal.propTypes = {
   value: PropTypes.string,
@@ -96,6 +133,7 @@ ConfirmOTPModal.propTypes = {
   onCancel: PropTypes.func,
   error: PropTypes.string,
   createdOtpTime: PropTypes.string,
+  onResend: PropTypes.func,
 };
 
 ConfirmOTPModal.defaultProps = {};
