@@ -79,7 +79,7 @@ const ConfirmOTPModal = forwardRef(
               We are sending you an OTP code to your email.
             </Text>
 
-            {error && (
+            {Boolean(error) && (
               <View style={styles.alertWrapper}>
                 <Text style={styles.alertText}>{error}</Text>
               </View>

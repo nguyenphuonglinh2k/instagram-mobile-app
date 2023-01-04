@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text, ScrollView } from "react-native";
+import { StyleSheet, FlatList, Text } from "react-native";
 import { MainLayout } from "layouts";
 import { FollowUserItem } from "components/sn-profile";
 import { useSelector } from "react-redux";
@@ -39,28 +39,25 @@ const FriendSuggestion = () => {
 
   return (
     <MainLayout>
-      <ScrollView style={{ flex: 1 }}>
-        <Text style={styles.title}>Friend Suggestions</Text>
-
-        <FlatList
-          nestedScrollEnabled
-          data={suggestion || []}
-          renderItem={({ item }) => (
-            <FollowUserItem data={item} userId={authUser._id} />
-          )}
-          keyExtractor={(_, i) => i}
-          contentContainerStyle={styles.list}
-        />
-      </ScrollView>
+      <FlatList
+        ListHeaderComponent={
+          <Text style={styles.title}>Friend Suggestions</Text>
+        }
+        data={suggestion || []}
+        renderItem={({ item }) => (
+          <FollowUserItem data={item} userId={authUser._id} />
+        )}
+        keyExtractor={(_, i) => i}
+        contentContainerStyle={styles.list}
+      />
     </MainLayout>
   );
 };
 
 const styles = StyleSheet.create({
   title: {
-    marginHorizontal: 16,
     paddingBottom: 10,
-    marginTop: 8,
+    marginBottom: 10,
     color: "#292D32",
     fontWeight: "700",
     fontSize: 16,

@@ -52,6 +52,9 @@ const SignIn = () => {
   const onVerifyOTP = async () => {
     try {
       const response = await AuthService.confirmOtp({ otp, email });
+
+      console.log("onVerifyOTP", response.status);
+
       if (response.status === ApiConstant.STT_OK) {
         // Login successfully
         dispatch(
@@ -60,6 +63,8 @@ const SignIn = () => {
           }),
         );
         setError("");
+      } else {
+        setError("The OTP is incorrect or The time is expired");
       }
     } catch (err) {
       setError("The OTP is incorrect or The time is expired");
@@ -67,7 +72,12 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    setIsVisible(Boolean(createdOtpTime));
+    if (createdOtpTime) {
+      setIsVisible(true);
+    } else {
+      setError("");
+      onChangeOtp("");
+    }
   }, [createdOtpTime]);
 
   return (

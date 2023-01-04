@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { StyleSheet, FlatList, RefreshControl } from "react-native";
 import Post from "./Post";
 import { PostService } from "services";
@@ -8,7 +8,7 @@ import { useIsFocused } from "@react-navigation/core";
 import { EmptyData } from "components";
 
 const Posts = () => {
-  const isFocuses = useIsFocused();
+  const isFocused = useIsFocused();
 
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
@@ -20,35 +20,47 @@ const Posts = () => {
     const userId = authUser._id;
     if (!userId) return;
 
-    const response = await PostService.getMyLikes(userId);
+    try {
+      const response = await PostService.getMyLikes(userId);
 
-    if (response?.status === ApiConstant.STT_OK) {
-      Boolean(response?.data) && setLikes(response.data);
+      if (
+        response?.status === ApiConstant.STT_OK &&
+        response?.data &&
+        isFocused
+      ) {
+        setLikes(response.data);
+      }
+    } catch (err) {
+      console.log("onGetLikeAction", err);
     }
-  }, [authUser]);
+  }, [authUser, isFocused]);
 
   const onGetPosts = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await PostService.getPosts();
 
-      if (response?.status === ApiConstant.STT_OK) {
-        Boolean(response?.data) && setPosts(response.data);
+      if (
+        response?.status === ApiConstant.STT_OK &&
+        response?.data &&
+        isFocused
+      ) {
+        setPosts(response.data);
       }
     } catch (err) {
-      console.log(err);
+      console.log("onGetPosts", err);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
-    if (isFocuses) onGetLikeAction();
-  }, [onGetLikeAction, isFocuses]);
+    onGetLikeAction();
+  }, [onGetLikeAction]);
 
   useEffect(() => {
-    if (isFocuses) onGetPosts();
-  }, [onGetPosts, isFocuses]);
+    onGetPosts();
+  }, [onGetPosts]);
 
   return posts?.length ? (
     <FlatList
@@ -82,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Posts;
+export default memo(Posts);
