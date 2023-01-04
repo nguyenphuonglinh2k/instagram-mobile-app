@@ -7,6 +7,7 @@ import { UserService } from "services/index";
 import { ApiConstant } from "const/index";
 import { useToast } from "react-native-toast-notifications";
 import { useIsFocused } from "@react-navigation/core";
+import LoadingSpinner from "components/LoadingSpinner";
 
 const FriendSuggestion = () => {
   const toast = useToast();
@@ -18,8 +19,11 @@ const FriendSuggestion = () => {
   ]);
 
   const [suggestion, setSuggestion] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onGetFriendSuggestion = useCallback(async () => {
+    setIsLoading(true);
+
     try {
       const response = await UserService.getFriendSuggestion(authUser._id);
 
@@ -28,6 +32,8 @@ const FriendSuggestion = () => {
       }
     } catch (error) {
       toast.show("Something went wrong", { type: "danger" });
+    } finally {
+      setIsLoading(false);
     }
   }, [authUser._id, toast]);
 
@@ -50,6 +56,7 @@ const FriendSuggestion = () => {
         keyExtractor={(_, i) => i}
         contentContainerStyle={styles.list}
       />
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
